@@ -1,0 +1,195 @@
+[     575ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_088h0x-._.js:776
+[     641ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=xCstlcz_Zri7O14h2i-Km' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[    1672ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=xCstlcz_Zri7O14h2i-Km' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[    2676ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=xCstlcz_Zri7O14h2i-Km' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[    3683ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=xCstlcz_Zri7O14h2i-Km' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[    4716ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=xCstlcz_Zri7O14h2i-Km' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[    5722ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=xCstlcz_Zri7O14h2i-Km' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[   10755ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=xCstlcz_Zri7O14h2i-Km' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[   15797ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=xCstlcz_Zri7O14h2i-Km' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[   20815ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=xCstlcz_Zri7O14h2i-Km' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[   25892ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=xCstlcz_Zri7O14h2i-Km' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[   30963ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=xCstlcz_Zri7O14h2i-Km' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[   36209ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=xCstlcz_Zri7O14h2i-Km' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[   41711ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=xCstlcz_Zri7O14h2i-Km' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[   42196ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_088h0x-._.js:776
+[   43378ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=lgTMZMriHhiL5NQf83lUY' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[   44934ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=lgTMZMriHhiL5NQf83lUY' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[   50869ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=lgTMZMriHhiL5NQf83lUY' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[   55009ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=lgTMZMriHhiL5NQf83lUY' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[   58712ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=lgTMZMriHhiL5NQf83lUY' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[   62157ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=lgTMZMriHhiL5NQf83lUY' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[   69289ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=lgTMZMriHhiL5NQf83lUY' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[   77250ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=lgTMZMriHhiL5NQf83lUY' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[   85372ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=lgTMZMriHhiL5NQf83lUY' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[   94097ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=lgTMZMriHhiL5NQf83lUY' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  102373ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=lgTMZMriHhiL5NQf83lUY' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  110800ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=lgTMZMriHhiL5NQf83lUY' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  117061ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=lgTMZMriHhiL5NQf83lUY' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  119277ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://127.0.0.1:3000/:0
+[  119400ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:3000/_next/static/chunks/1yi7_react-dom_1papa4l._.js:15093
+[  119437ms] Error: ./components/sections/Kabar.tsx:48:11
+Error: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+  46 |               </a>
+  47 |           </StaggerItem>
+> 48 |         ))}
+     |           ^
+  49 |       </Stagger>
+  50 |     </section>
+  51 |   );
+
+Parsing ecmascript source code failed
+
+Import trace:
+  Server Component:
+    ./components/sections/Kabar.tsx
+    ./app/page.tsx
+
+
+    at <unknown> (Error: ./components/sections/Kabar.tsx:48:11)
+    at Object.getCompilationErrors (file:///Users/tunis/project/ottodigital/emas/node_modules/.pnpm/next@16.3.4_@babel+core@7.29.7_@types+node@20.19.43_babel-plugin-react-compiler@1.0.0_r_9c35c7c09d608e0a91cfda33fdb4a594/node_modules/next/dist/server/dev/hot-reloader-turbopack.js:1417:59)
+    at DevBundlerService.getCompilationError (file:///Users/tunis/project/ottodigital/emas/node_modules/.pnpm/next@16.3.4_@babel+core@7.29.7_@types+node@20.19.43_babel-plugin-react-compiler@1.0.0_r_9c35c7c09d608e0a91cfda33fdb4a594/node_modules/next/dist/server/lib/dev-bundler-service.js:59:55)
+    at DevServer.getCompilationError (file:///Users/tunis/project/ottodigital/emas/node_modules/.pnpm/next@16.3.4_@babel+core@7.29.7_@types+node@20.19.43_babel-plugin-react-compiler@1.0.0_r_9c35c7c09d608e0a91cfda33fdb4a594/node_modules/next/dist/server/dev/next-dev-server.js:754:42)
+    at DevServer.findPageComponents (file:///Users/tunis/project/ottodigital/emas/node_modules/.pnpm/next@16.3.4_@babel+core@7.29.7_@types+node@20.19.43_babel-plugin-react-compiler@1.0.0_r_9c35c7c09d608e0a91cfda33fdb4a594/node_modules/next/dist/server/dev/next-dev-server.js:724:43)
+    at async DevServer.renderErrorToResponseImpl (file:///Users/tunis/project/ottodigital/emas/node_modules/.pnpm/next@16.3.4_@babel+core@7.29.7_@types+node@20.19.43_babel-plugin-react-compiler@1.0.0_r_9c35c7c09d608e0a91cfda33fdb4a594/node_modules/next/dist/server/base-server.js:1828:26)
+[  119462ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:3000/favicon.ico:0
+[  119475ms] [ERROR] Failed to load resource: the server responded with a status of 403 (Forbidden) @ http://127.0.0.1:3000/__nextjs_original-stack-frames:0
+[  121129ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_0ox4wb_._.js:1009
+[  126327ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_0ox4wb_._.js:1009
+[  129169ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_0ox4wb_._.js:1009
+[  133679ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_0ox4wb_._.js:1009
+[  136472ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_0ox4wb_._.js:1009
+[  140069ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_0ox4wb_._.js:1009
+[  146668ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_0ox4wb_._.js:1009
+[  155716ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_0ox4wb_._.js:1009
+[  163477ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_0ox4wb_._.js:1009
+[  171396ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_0ox4wb_._.js:1009
+[  179227ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_0ox4wb_._.js:1009
+[  186613ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_0ox4wb_._.js:1009
+[  195677ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_0ox4wb_._.js:1009
+[  196377ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://127.0.0.1:3000/:0
+[  196434ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:3000/_next/static/chunks/1yi7_react-dom_1papa4l._.js:15093
+[  196447ms] Error: ./components/sections/Kabar.tsx:48:11
+Error: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+  46 |               </a>
+  47 |           </StaggerItem>
+> 48 |         ))}
+     |           ^
+  49 |       </Stagger>
+  50 |     </section>
+  51 |   );
+
+Parsing ecmascript source code failed
+
+Import trace:
+  Server Component:
+    ./components/sections/Kabar.tsx
+    ./app/page.tsx
+
+
+    at <unknown> (Error: ./components/sections/Kabar.tsx:48:11)
+    at Object.getCompilationErrors (file:///Users/tunis/project/ottodigital/emas/node_modules/.pnpm/next@16.3.4_@babel+core@7.29.7_@types+node@20.19.43_babel-plugin-react-compiler@1.0.0_r_9c35c7c09d608e0a91cfda33fdb4a594/node_modules/next/dist/server/dev/hot-reloader-turbopack.js:1417:59)
+    at DevBundlerService.getCompilationError (file:///Users/tunis/project/ottodigital/emas/node_modules/.pnpm/next@16.3.4_@babel+core@7.29.7_@types+node@20.19.43_babel-plugin-react-compiler@1.0.0_r_9c35c7c09d608e0a91cfda33fdb4a594/node_modules/next/dist/server/lib/dev-bundler-service.js:59:55)
+    at DevServer.getCompilationError (file:///Users/tunis/project/ottodigital/emas/node_modules/.pnpm/next@16.3.4_@babel+core@7.29.7_@types+node@20.19.43_babel-plugin-react-compiler@1.0.0_r_9c35c7c09d608e0a91cfda33fdb4a594/node_modules/next/dist/server/dev/next-dev-server.js:754:42)
+    at DevServer.findPageComponents (file:///Users/tunis/project/ottodigital/emas/node_modules/.pnpm/next@16.3.4_@babel+core@7.29.7_@types+node@20.19.43_babel-plugin-react-compiler@1.0.0_r_9c35c7c09d608e0a91cfda33fdb4a594/node_modules/next/dist/server/dev/next-dev-server.js:724:43)
+    at async DevServer.renderErrorToResponseImpl (file:///Users/tunis/project/ottodigital/emas/node_modules/.pnpm/next@16.3.4_@babel+core@7.29.7_@types+node@20.19.43_babel-plugin-react-compiler@1.0.0_r_9c35c7c09d608e0a91cfda33fdb4a594/node_modules/next/dist/server/base-server.js:1828:26)
+[  196464ms] [ERROR] Failed to load resource: the server responded with a status of 403 (Forbidden) @ http://127.0.0.1:3000/__nextjs_original-stack-frames:0
+[  200377ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_0ox4wb_._.js:1009
+[  205411ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_0ox4wb_._.js:1009
+[  211139ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_0ox4wb_._.js:1009
+[  216967ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_0ox4wb_._.js:1009
+[  222402ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_0ox4wb_._.js:1009
+[  225459ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_0ox4wb_._.js:1009
+[  232998ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_0ox4wb_._.js:1009
+[  240743ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_0ox4wb_._.js:1009
+[  250092ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_0ox4wb_._.js:1009
+[  257839ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_0ox4wb_._.js:1009
+[  265167ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_0ox4wb_._.js:1009
+[  274583ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_0ox4wb_._.js:1009
+[  281774ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_0ox4wb_._.js:1009
+[  282053ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://127.0.0.1:3000/:0
+[  282125ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:3000/_next/static/chunks/1yi7_react-dom_1papa4l._.js:15093
+[  282140ms] Error: ./components/sections/Kabar.tsx:48:11
+Error: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+  46 |               </a>
+  47 |           </StaggerItem>
+> 48 |         ))}
+     |           ^
+  49 |       </Stagger>
+  50 |     </section>
+  51 |   );
+
+Parsing ecmascript source code failed
+
+Import trace:
+  Server Component:
+    ./components/sections/Kabar.tsx
+    ./app/page.tsx
+
+
+    at <unknown> (Error: ./components/sections/Kabar.tsx:48:11)
+    at Object.getCompilationErrors (file:///Users/tunis/project/ottodigital/emas/node_modules/.pnpm/next@16.3.4_@babel+core@7.29.7_@types+node@20.19.43_babel-plugin-react-compiler@1.0.0_r_9c35c7c09d608e0a91cfda33fdb4a594/node_modules/next/dist/server/dev/hot-reloader-turbopack.js:1417:59)
+    at DevBundlerService.getCompilationError (file:///Users/tunis/project/ottodigital/emas/node_modules/.pnpm/next@16.3.4_@babel+core@7.29.7_@types+node@20.19.43_babel-plugin-react-compiler@1.0.0_r_9c35c7c09d608e0a91cfda33fdb4a594/node_modules/next/dist/server/lib/dev-bundler-service.js:59:55)
+    at DevServer.getCompilationError (file:///Users/tunis/project/ottodigital/emas/node_modules/.pnpm/next@16.3.4_@babel+core@7.29.7_@types+node@20.19.43_babel-plugin-react-compiler@1.0.0_r_9c35c7c09d608e0a91cfda33fdb4a594/node_modules/next/dist/server/dev/next-dev-server.js:754:42)
+    at DevServer.findPageComponents (file:///Users/tunis/project/ottodigital/emas/node_modules/.pnpm/next@16.3.4_@babel+core@7.29.7_@types+node@20.19.43_babel-plugin-react-compiler@1.0.0_r_9c35c7c09d608e0a91cfda33fdb4a594/node_modules/next/dist/server/dev/next-dev-server.js:724:43)
+    at async DevServer.renderErrorToResponseImpl (file:///Users/tunis/project/ottodigital/emas/node_modules/.pnpm/next@16.3.4_@babel+core@7.29.7_@types+node@20.19.43_babel-plugin-react-compiler@1.0.0_r_9c35c7c09d608e0a91cfda33fdb4a594/node_modules/next/dist/server/base-server.js:1828:26)
+[  282152ms] [ERROR] Failed to load resource: the server responded with a status of 403 (Forbidden) @ http://127.0.0.1:3000/__nextjs_original-stack-frames:0
+[  285575ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_0ox4wb_._.js:1009
+[  289600ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_0ox4wb_._.js:1009
+[  294679ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_0ox4wb_._.js:1009
+[  299329ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_0ox4wb_._.js:1009
+[  305227ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_0ox4wb_._.js:1009
+[  310364ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_0ox4wb_._.js:1009
+[  316584ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_0ox4wb_._.js:1009
+[  324617ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_0ox4wb_._.js:1009
+[  333971ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_0ox4wb_._.js:1009
+[  338603ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_088h0x-._.js:776
+[  341818ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=SQvB1JZ6KEauL8oWlQk4t' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  345825ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=SQvB1JZ6KEauL8oWlQk4t' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  348885ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=SQvB1JZ6KEauL8oWlQk4t' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  354324ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=SQvB1JZ6KEauL8oWlQk4t' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  359340ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=SQvB1JZ6KEauL8oWlQk4t' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  361649ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=SQvB1JZ6KEauL8oWlQk4t' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  369740ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=SQvB1JZ6KEauL8oWlQk4t' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  376822ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=SQvB1JZ6KEauL8oWlQk4t' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  386206ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=SQvB1JZ6KEauL8oWlQk4t' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  392215ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=SQvB1JZ6KEauL8oWlQk4t' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  401611ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=SQvB1JZ6KEauL8oWlQk4t' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  408305ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=SQvB1JZ6KEauL8oWlQk4t' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  415150ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=SQvB1JZ6KEauL8oWlQk4t' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  415524ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_088h0x-._.js:776
+[  417673ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=MNRTLUfatWkBB81a_U80J' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  421352ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=MNRTLUfatWkBB81a_U80J' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  424778ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=MNRTLUfatWkBB81a_U80J' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  429372ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=MNRTLUfatWkBB81a_U80J' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  435041ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=MNRTLUfatWkBB81a_U80J' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  440432ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=MNRTLUfatWkBB81a_U80J' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  450345ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=MNRTLUfatWkBB81a_U80J' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  459445ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=MNRTLUfatWkBB81a_U80J' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  468427ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=MNRTLUfatWkBB81a_U80J' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  477432ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=MNRTLUfatWkBB81a_U80J' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  482445ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=MNRTLUfatWkBB81a_U80J' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  487473ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=MNRTLUfatWkBB81a_U80J' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  492504ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=MNRTLUfatWkBB81a_U80J' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  492987ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_088h0x-._.js:776
+[  493019ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=mY0dGhoRvk4SPn51ixFab' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  494027ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=mY0dGhoRvk4SPn51ixFab' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  495035ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=mY0dGhoRvk4SPn51ixFab' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  496047ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=mY0dGhoRvk4SPn51ixFab' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  497066ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=mY0dGhoRvk4SPn51ixFab' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  498109ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=mY0dGhoRvk4SPn51ixFab' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  503206ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=mY0dGhoRvk4SPn51ixFab' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  508336ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=mY0dGhoRvk4SPn51ixFab' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  513646ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=mY0dGhoRvk4SPn51ixFab' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  518945ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=mY0dGhoRvk4SPn51ixFab' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  524712ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=mY0dGhoRvk4SPn51ixFab' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  531173ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=mY0dGhoRvk4SPn51ixFab' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  539524ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=mY0dGhoRvk4SPn51ixFab' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  540821ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_088h0x-._.js:776
+[  544356ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=1BX1s5d5ulwcDbED_6KPi' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  549804ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=1BX1s5d5ulwcDbED_6KPi' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  553230ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=1BX1s5d5ulwcDbED_6KPi' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  556862ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=1BX1s5d5ulwcDbED_6KPi' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  562785ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=1BX1s5d5ulwcDbED_6KPi' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  565869ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=1BX1s5d5ulwcDbED_6KPi' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348
+[  573000ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:3000/_next/hmr?id=1BX1s5d5ulwcDbED_6KPi' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://127.0.0.1:3000/_next/static/chunks/0yis_next_dist_client_15dcyh6._.js:16348

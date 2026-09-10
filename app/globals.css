@@ -1,0 +1,275 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Design tokens.
+
+   Palet dan tipografi diadaptasi dari amman.co.id — diukur langsung dari
+   computed style situsnya, bukan dikira-kira:
+
+     latar        #FFFFFF putih penuh
+     blok gelap   #000000 hitam penuh
+     teks         #3F3936 charcoal hangat (bukan hitam — ini kunci karakternya)
+     aksen        #E9F40B kuning
+
+   Tailwind v4 memakai config CSS-first: setiap entri di @theme otomatis jadi
+   utility (--color-paper -> bg-paper / text-paper / border-paper).
+   --------------------------------------------------------------------------- */
+@theme {
+  --color-paper: #ffffff;
+  --color-paper-2: #f6f5f3;
+
+  --color-ink: #000000;
+  --color-ink-2: #141210;
+
+  /* Teks utama. Charcoal hangat, kontras 11.35:1 di atas putih. */
+  --color-graphite: #3f3936;
+  --color-muted: #6b655f;
+  --color-rule: #e2dfdb;
+
+  /* Di atas latar hitam */
+  --color-rule-dk: #2a2724;
+  --color-dim: #9a938c;
+  --color-dim-2: #c4bfb9;
+
+  /* AKSEN — 1,21:1 di atas putih. TIDAK PERNAH untuk teks di atas latar
+     terang. Hanya blok padat, indikator, dan garis; kalau dipakai sebagai
+     latar, teks di atasnya harus hitam/charcoal (9,4–17,4:1). Amman sendiri
+     memakainya hanya sebagai bar indikator. */
+  --color-accent: #e9f40b;
+
+  --color-up: #1f6b2e;
+  --color-down: #8a2b18;
+  --color-down-dk: #d98368;
+
+  /* Work Sans untuk display, Inter untuk teks — persis pasangan di Amman. */
+  --font-display: var(--font-work-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+
+  /* -------------------------------------------------------------------------
+     DDSM — brand terpisah (PT Datar Dana Sukses Makmur) di /ddsm.
+     Sengaja diberi prefix supaya tidak pernah tercampur dengan token SUVARNA.
+
+     Aturan warna: `ddsm-gold` di atas latar terang cuma 1,36:1 — tidak boleh
+     jadi teks di atas sand/cream. Hanya di atas forest (8,39:1) atau sebagai
+     blok padat dengan teks gelap di atasnya.
+     ------------------------------------------------------------------------- */
+  --color-ddsm-forest: #1d351e;
+  --color-ddsm-green: #1d3a22;
+  --color-ddsm-green-2: #46754d;
+  --color-ddsm-gold: #f5c91d;
+  --color-ddsm-amber: #ef9300;
+  --color-ddsm-sand: #f1ede9;
+  --color-ddsm-cream: #f7f1e8;
+  --color-ddsm-paper: #f8f5f1;
+  --color-ddsm-ink: #172317;
+  --color-ddsm-body: #40473f;
+  --color-ddsm-muted: #62645e;
+  --color-ddsm-rule: #ded8cf;
+  --color-ddsm-rule-dk: #33473a;
+  --color-ddsm-dim: #c7ccc4;
+
+  /* Fraunces dimuat hanya di layout /ddsm. Fallback di dalam var() penting:
+     di luar subtree DDSM variabelnya tidak ada, dan tanpa fallback seluruh
+     deklarasi font-family jadi invalid. */
+  --font-serif: var(--font-fraunces, ui-serif), Georgia, "Times New Roman", serif;
+
+  --container-shell: 1440px;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* header sticky 72px — supaya anchor tidak ketutup */
+    scroll-padding-top: 72px;
+  }
+
+  body {
+    background: var(--color-paper);
+    color: var(--color-graphite);
+    font-family: var(--font-sans);
+    font-weight: 300;
+    font-variant-numeric: tabular-nums;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+@layer utilities {
+  .shell {
+    max-width: var(--container-shell);
+    margin-inline: auto;
+    padding-inline: 20px;
+  }
+
+  @media (min-width: 1024px) {
+    .shell {
+      /* Amman memberi napas ~5% di tiap sisi — itu yang bikin halamannya lega. */
+      padding-inline: 72px;
+    }
+  }
+
+  /* Display type khas Amman: uppercase, weight 320 (sangat ringan), dan
+     line-height persis 1.0. Kombinasi itu yang bikin judulnya terasa lapang
+     alih-alih berat. Work Sans variable, jadi 320 memang tersedia. */
+  .display {
+    font-family: var(--font-display);
+    font-weight: 320;
+    text-transform: uppercase;
+    line-height: 1;
+    letter-spacing: -0.005em;
+  }
+
+  /* Label kecil letterspaced — dipakai untuk eyebrow dan meta. */
+  .label {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  /* Tombol pill: radius 50px, border 1px, Work Sans 14/400.
+     Diukur dari tombol "Read More" di Amman. */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    border-radius: 50px;
+    border-width: 1px;
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 400;
+    padding: 11px 30px;
+    transition:
+      background-color 0.25s ease,
+      color 0.25s ease,
+      border-color 0.25s ease;
+  }
+
+  /* Panah pada tombol dan tautan bergeser sedikit saat hover — satu-satunya
+     micro-interaction yang dipakai Amman, dan murni transform. */
+  .pill svg,
+  .arrow svg {
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .pill:hover svg,
+  .arrow:hover svg {
+    transform: translateX(4px);
+  }
+
+  .arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 400;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Animasi
+   Aturan: hanya `transform` dan `opacity`. Tidak ada properti yang memicu
+   layout, jadi tidak ada kontribusi ke CLS.
+   --------------------------------------------------------------------------- */
+
+@keyframes tick {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.ticker-track {
+  animation: tick 42s linear infinite;
+  will-change: transform;
+}
+
+/* Entrance above-the-fold: CSS murni, nol JavaScript.
+   Elemen LCP (h1 hero) sengaja TIDAK dianimasikan — lihat catatan di
+   components/sections/Hero.tsx. Ini hanya untuk elemen pendukung. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.rise {
+  animation: rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+
+.rise-1 { animation-delay: 0.05s; }
+.rise-2 { animation-delay: 0.12s; }
+.rise-3 { animation-delay: 0.19s; }
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .ticker-track,
+  .rise {
+    animation: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Scroll reveal
+   Digerakkan oleh IntersectionObserver di components/motion/useArmedReveal.ts,
+   yang hanya membalik atribut [data-phase]. Transisinya sendiri murni CSS,
+   jadi jalan di compositor thread dan tidak menyentuh main thread sama sekali —
+   ini yang menjaga INP tetap rendah.
+
+   Fase awal selalu "open": HTML dari server sudah terlihat penuh.
+   --------------------------------------------------------------------------- */
+
+.reveal,
+.stagger-item {
+  --reveal-y: 16px;
+  --reveal-delay: 0s;
+}
+
+.reveal[data-phase="closed"],
+.stagger[data-phase="closed"] .stagger-item {
+  opacity: 0;
+  transform: translateY(var(--reveal-y));
+  /* Menyembunyikan harus instan — yang dianimasikan hanya arah sebaliknya. */
+  transition: none;
+}
+
+.reveal[data-phase="open"],
+.stagger[data-phase="open"] .stagger-item {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay),
+    transform 0.55s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .stagger-item {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

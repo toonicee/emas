@@ -1,0 +1,414 @@
+- generic [active] [ref=e1]:
+  - link "Lompat ke konten utama" [ref=e2] [cursor=pointer]:
+    - /url: "#top"
+  - generic "Harga pasar terkini" [ref=e3]:
+    - generic [ref=e4]:
+      - generic [ref=e5]:
+        - generic [ref=e6]:
+          - generic [ref=e7]: XAU/USD
+          - generic [ref=e8]: 3.412,80
+          - generic [ref=e9]: +0,62%
+        - generic [ref=e10]:
+          - generic [ref=e11]: EMAS 24K
+          - generic [ref=e12]: Rp 2.148.500/gr
+          - generic [ref=e13]: +0,82%
+        - generic [ref=e14]:
+          - generic [ref=e15]: ANTAM 1GR
+          - generic [ref=e16]: Rp 2.204.000
+          - generic [ref=e17]: +0,74%
+        - generic [ref=e18]:
+          - generic [ref=e19]: UBS 1GR
+          - generic [ref=e20]: Rp 2.171.000
+          - generic [ref=e21]: −0,11%
+        - generic [ref=e22]:
+          - generic [ref=e23]: USD/IDR
+          - generic [ref=e24]: "16.284"
+          - generic [ref=e25]: −0,18%
+        - generic [ref=e26]:
+          - generic [ref=e27]: PERAK
+          - generic [ref=e28]: Rp 24.980/gr
+          - generic [ref=e29]: +1,04%
+      - generic [aria-hidden] [ref=e30]:
+        - generic [ref=e31]:
+          - generic [ref=e32]: XAU/USD
+          - generic [ref=e33]: 3.412,80
+          - generic [ref=e34]: +0,62%
+        - generic [ref=e35]:
+          - generic [ref=e36]: EMAS 24K
+          - generic [ref=e37]: Rp 2.148.500/gr
+          - generic [ref=e38]: +0,82%
+        - generic [ref=e39]:
+          - generic [ref=e40]: ANTAM 1GR
+          - generic [ref=e41]: Rp 2.204.000
+          - generic [ref=e42]: +0,74%
+        - generic [ref=e43]:
+          - generic [ref=e44]: UBS 1GR
+          - generic [ref=e45]: Rp 2.171.000
+          - generic [ref=e46]: −0,11%
+        - generic [ref=e47]:
+          - generic [ref=e48]: USD/IDR
+          - generic [ref=e49]: "16.284"
+          - generic [ref=e50]: −0,18%
+        - generic [ref=e51]:
+          - generic [ref=e52]: PERAK
+          - generic [ref=e53]: Rp 24.980/gr
+          - generic [ref=e54]: +1,04%
+  - banner [ref=e55]:
+    - generic [ref=e56]:
+      - link "SUVARNA" [ref=e57] [cursor=pointer]:
+        - /url: "#top"
+      - navigation "Navigasi utama" [ref=e58]:
+        - link "Emas Digital" [ref=e59] [cursor=pointer]:
+          - /url: "#pasar"
+        - button "Emas Fisik" [ref=e61] [cursor=pointer]
+        - link "Informasi" [ref=e62] [cursor=pointer]:
+          - /url: "#kabar"
+        - link "Event" [ref=e63] [cursor=pointer]:
+          - /url: "#kabar"
+        - button "Perusahaan" [ref=e65] [cursor=pointer]
+      - generic [ref=e66]:
+        - generic [ref=e67]: ID / EN
+        - link "Masuk" [ref=e68] [cursor=pointer]:
+          - /url: "#unduh"
+  - main [ref=e72]:
+    - generic [ref=e74]:
+      - generic [ref=e75]:
+        - paragraph [ref=e76]: PEDAGANG EMAS FISIK DIGITAL — IZIN BAPPEBTI 004/2024
+        - heading "Emas fisik, akses digital." [level=1] [ref=e77]
+        - generic [ref=e78]:
+          - paragraph [ref=e79]: Setiap gram yang kamu miliki di aplikasi berdiri di atas batangan bersertifikat di brankas Jakarta. Bukan derivatif, bukan klaim kertas.
+          - paragraph [ref=e80]: Beli mulai Rp 10.000, cetak jadi batangan kapan pun, atau jual kembali pada harga hari itu juga.
+        - generic [ref=e81]:
+          - link "Buka Rekening" [ref=e82] [cursor=pointer]:
+            - /url: "#unduh"
+          - link "Harga Hari Ini" [ref=e86] [cursor=pointer]:
+            - /url: "#pasar"
+      - generic [ref=e90]:
+        - generic [ref=e91]:
+          - heading "Harga Acuan" [level=2] [ref=e92]
+          - time [ref=e93]: Kamis, 10 September 2026 · 14.32 WIB
+        - generic [ref=e94]:
+          - generic [ref=e95]:
+            - generic [ref=e96]:
+              - term [ref=e97]: Beli
+              - paragraph [ref=e98]: EMAS 24K · PER GRAM
+            - definition [ref=e99]:
+              - generic [ref=e100]: Rp 2.148.500
+              - generic [ref=e101]: + Rp 17.500 (0,82%)
+          - generic [ref=e102]:
+            - generic [ref=e103]:
+              - term [ref=e104]: Jual
+              - paragraph [ref=e105]: BUYBACK · PER GRAM
+            - definition [ref=e106]:
+              - generic [ref=e107]: Rp 2.089.000
+              - generic [ref=e108]: + Rp 16.000 (0,77%)
+          - generic [ref=e109]:
+            - generic [ref=e110]:
+              - term [ref=e111]: Antam
+              - paragraph [ref=e112]: BATANGAN 1 GRAM
+            - definition [ref=e113]:
+              - generic [ref=e114]: Rp 2.204.000
+              - generic [ref=e115]: + Rp 16.200 (0,74%)
+          - generic [ref=e116]:
+            - generic [ref=e117]:
+              - term [ref=e118]: UBS
+              - paragraph [ref=e119]: BATANGAN 1 GRAM
+            - definition [ref=e120]:
+              - generic [ref=e121]: Rp 2.171.000
+              - generic [ref=e122]: − Rp 2.400 (0,11%)
+        - paragraph [ref=e123]: Harga diperbarui tiap 60 detik dari pasar spot dan kurs tengah BI. Spread beli–jual 2,8%.
+    - region [ref=e124]:
+      - generic [ref=e126]:
+        - generic [ref=e127]:
+          - paragraph [ref=e128]: TENTANG KAMI
+          - heading "Emas yang bisa kamu pegang" [level=2] [ref=e129]
+        - generic [ref=e131]:
+          - paragraph [ref=e132]: SUVARNA menyimpan setiap gram milik pengguna sebagai batangan bersertifikat di brankas pihak ketiga di Jakarta — diasuransikan penuh dan diaudit tiap kuartal. Yang tampil di aplikasi adalah cerminan logam yang benar-benar ada, bukan angka di atas kertas.
+          - link "Selengkapnya" [ref=e134] [cursor=pointer]:
+            - /url: "#brankas"
+    - region [ref=e138]:
+      - generic [ref=e140]:
+        - generic [ref=e141]:
+          - paragraph [ref=e142]: PASAR
+          - heading "Grafik harga emas" [level=2] [ref=e143]
+          - paragraph [ref=e144]: "Rata-rata harian harga beli 24 karat dalam rupiah per gram. Data pembanding: LBMA London Fix dan kurs tengah Bank Indonesia."
+          - group "Rentang waktu grafik" [ref=e145]:
+            - button "1H" [ref=e146] [cursor=pointer]
+            - button "1M" [ref=e147] [cursor=pointer]
+            - button "3B" [pressed] [ref=e148] [cursor=pointer]
+            - button "6B" [ref=e149] [cursor=pointer]
+            - button "1T" [ref=e150] [cursor=pointer]
+            - button "5T" [ref=e151] [cursor=pointer]
+          - generic [ref=e152]:
+            - generic [ref=e153]:
+              - generic [ref=e154]: Tertinggi
+              - generic [ref=e155]: Rp 2.191.000
+            - generic [ref=e156]:
+              - generic [ref=e157]: Terendah
+              - generic [ref=e158]: Rp 2.033.500
+        - generic [ref=e159]:
+          - generic [ref=e160]:
+            - generic [ref=e161]: XAU/IDR · per gram
+            - generic [ref=e162]: 3 bulan
+          - img "Grafik harga emas 24 karat per gram untuk rentang 3 bulan. Tertinggi Rp 2.191.000, terendah Rp 2.033.500." [ref=e163]
+          - generic [ref=e165]:
+            - generic [ref=e166]: JUN 2026
+            - generic [ref=e167]: JUL 2026
+            - generic [ref=e168]: HARI INI
+    - region [ref=e169]:
+      - generic [ref=e170]:
+        - generic [ref=e171]:
+          - generic [ref=e172]:
+            - heading "Emas fisik" [level=2] [ref=e173]
+            - paragraph [ref=e174]: Tukar saldo digital jadi logam yang bisa kamu genggam — batangan, koin, atau perhiasan, semuanya bersertifikat dan diantar berasuransi.
+          - link "Semua produk" [ref=e175] [cursor=pointer]:
+            - /url: "#produk"
+        - generic [ref=e179]:
+          - button "01 Logam Mulia Batangan bersertifikat dari 0,5 gram sampai 1 kilogram. ANTAM · UBS · GALERI 24" [expanded] [ref=e180] [cursor=pointer]:
+            - generic [ref=e182]:
+              - generic [ref=e183]: "01"
+              - generic [ref=e184]:
+                - generic [ref=e185]: Logam Mulia
+                - generic [ref=e186]:
+                  - generic [ref=e187]: Batangan bersertifikat dari 0,5 gram sampai 1 kilogram.
+                  - generic [ref=e188]: ANTAM · UBS · GALERI 24
+          - button "02 Koin Emas Seri Nusantara, edisi Lunar tahunan, dan cetakan custom. 1 GR – 10 GR" [ref=e189] [cursor=pointer]:
+            - generic [ref=e191]:
+              - generic [ref=e192]: "02"
+              - generic [ref=e193]:
+                - generic [ref=e194]: Koin Emas
+                - generic [ref=e195]:
+                  - generic [ref=e196]: Seri Nusantara, edisi Lunar tahunan, dan cetakan custom.
+                  - generic [ref=e197]: 1 GR – 10 GR
+          - button "03 Perhiasan Kalung, cincin, dan gelang dengan sertifikat kadar dan berat. 17K · 22K · 24K" [ref=e198] [cursor=pointer]:
+            - generic [ref=e200]:
+              - generic [ref=e201]: "03"
+              - generic [ref=e202]:
+                - generic [ref=e203]: Perhiasan
+                - generic [ref=e204]:
+                  - generic [ref=e205]: Kalung, cincin, dan gelang dengan sertifikat kadar dan berat.
+                  - generic [ref=e206]: 17K · 22K · 24K
+    - region [ref=e207]:
+      - generic [ref=e208]:
+        - generic [ref=e209]:
+          - heading "Di dalam aplikasi" [level=2] [ref=e210]
+          - paragraph [ref=e211]: Lima hal yang bisa kamu lakukan atas saldo emas kamu, semuanya tanpa biaya penyimpanan.
+        - generic [ref=e213]:
+          - generic [ref=e214]:
+            - button "01 Beli & jual" [expanded] [ref=e215] [cursor=pointer]:
+              - generic [ref=e216]: "01"
+              - generic [ref=e217]: Beli & jual
+              - generic [aria-hidden] [ref=e218]: +
+            - region "01 Beli & jual" [ref=e219]:
+              - paragraph [ref=e221]: Order pasar 24 jam pada harga acuan berjalan. Eksekusi instan, spread tampil sebelum konfirmasi.
+          - generic [ref=e222]:
+            - button "02 Transfer gram" [ref=e223] [cursor=pointer]:
+              - generic [ref=e224]: "02"
+              - generic [ref=e225]: Transfer gram
+              - generic [aria-hidden] [ref=e226]: +
+            - region "02 Transfer gram":
+              - paragraph [ref=e227]: Kirim emas ke sesama pengguna lewat nomor ponsel. Tanpa biaya, tercatat di mutasi kedua pihak.
+          - generic [ref=e228]:
+            - button "03 Cetak fisik" [ref=e229] [cursor=pointer]:
+              - generic [ref=e230]: "03"
+              - generic [ref=e231]: Cetak fisik
+              - generic [aria-hidden] [ref=e232]: +
+            - region "03 Cetak fisik":
+              - paragraph [ref=e233]: Tukar saldo digital jadi batangan, koin, atau perhiasan. Diantar berasuransi ke seluruh Indonesia.
+          - generic [ref=e234]:
+            - button "04 Panen emas" [ref=e235] [cursor=pointer]:
+              - generic [ref=e236]: "04"
+              - generic [ref=e237]: Panen emas
+              - generic [aria-hidden] [ref=e238]: +
+            - region "04 Panen emas":
+              - paragraph [ref=e239]: Titipkan saldo dalam tenor 3–12 bulan dan terima imbal hasil dalam gram, bukan rupiah.
+          - generic [ref=e240]:
+            - button "05 Gadai kilat" [ref=e241] [cursor=pointer]:
+              - generic [ref=e242]: "05"
+              - generic [ref=e243]: Gadai kilat
+              - generic [aria-hidden] [ref=e244]: +
+            - region "05 Gadai kilat":
+              - paragraph [ref=e245]: Jaminkan saldo emas untuk kebutuhan dana mendesak. Cair dalam hitungan menit, tanpa penalti pelunasan awal.
+    - region [ref=e246]:
+      - generic [ref=e248]:
+        - generic [ref=e249]:
+          - paragraph [ref=e250]: BRANKAS & KEPATUHAN
+          - heading "Emas kamu bisa dihitung, bukan dijanjikan" [level=2] [ref=e251]
+          - paragraph [ref=e252]: Cadangan diaudit tiap kuartal oleh kantor akuntan independen. Laporannya terbuka untuk semua pengguna.
+          - link "Unduh laporan Q2 2026" [ref=e254] [cursor=pointer]:
+            - /url: "#brankas"
+        - generic [ref=e258]:
+          - generic [ref=e260]:
+            - generic [ref=e261]: Izin pedagang emas digital
+            - generic [ref=e262]: BAPPEBTI 004/P-ED/2024
+          - generic [ref=e264]:
+            - generic [ref=e265]: Keanggotaan bursa & kliring
+            - generic [ref=e266]: ICDX · ICH
+          - generic [ref=e268]:
+            - generic [ref=e269]: Sertifikasi keamanan informasi
+            - generic [ref=e270]: ISO/IEC 27001:2022 · ISMS 25213
+          - generic [ref=e272]:
+            - generic [ref=e273]: Auditor cadangan emas
+            - generic [ref=e274]: KAP independen, tiap kuartal
+          - generic [ref=e276]:
+            - generic [ref=e277]: Asuransi brankas
+            - generic [ref=e278]: All-risk, nilai penuh
+          - generic [ref=e280]:
+            - generic [ref=e281]: Penyimpanan
+            - generic [ref=e282]: Brankas pihak ketiga, Jakarta
+    - region [ref=e283]:
+      - generic [ref=e285]:
+        - generic [ref=e286]:
+          - heading "Kabar" [level=2] [ref=e287]
+          - paragraph [ref=e288]: Promo, program, dan bacaan terbaru
+        - link "Semua tulisan" [ref=e289] [cursor=pointer]:
+          - /url: "#kabar"
+      - generic [ref=e293]:
+        - article [ref=e295]:
+          - link [aria-hidden] [ref=e296] [cursor=pointer]:
+            - /url: "#kabar"
+          - time [ref=e297]: 9 SEP 2026
+          - heading [level=3] [ref=e298]:
+            - link "Harga emas menguat tipis ditopang pelemahan dolar menjelang rilis inflasi AS" [ref=e299] [cursor=pointer]:
+              - /url: "#kabar"
+          - paragraph [ref=e300]: Emas 24 karat ditutup naik 0,82% ke Rp 2.148.500 per gram seiring pelemahan indeks dolar. Pelaku pasar menahan posisi menjelang rilis data inflasi Amerika Serikat pekan ini.
+          - generic [ref=e301]:
+            - link "Selengkapnya" [ref=e302] [cursor=pointer]:
+              - /url: "#kabar"
+            - generic [ref=e306]: 4 menit baca
+        - article [ref=e308]:
+          - link [aria-hidden] [ref=e309] [cursor=pointer]:
+            - /url: "#kabar"
+          - time [ref=e310]: 7 SEP 2026
+          - heading [level=3] [ref=e311]:
+            - link "Diskon 30% untuk pembelian pertama sepanjang September" [ref=e312] [cursor=pointer]:
+              - /url: "#kabar"
+          - paragraph [ref=e313]: Pengguna baru mendapat potongan spread 30% untuk transaksi pembelian pertama. Berlaku otomatis di aplikasi tanpa kode, sampai 30 September 2026.
+          - generic [ref=e314]:
+            - link "Selengkapnya" [ref=e315] [cursor=pointer]:
+              - /url: "#kabar"
+            - generic [ref=e319]: Sampai 30 Sep
+        - article [ref=e321]:
+          - link [aria-hidden] [ref=e322] [cursor=pointer]:
+            - /url: "#kabar"
+          - time [ref=e323]: 5 SEP 2026
+          - heading [level=3] [ref=e324]:
+            - link "SUVARNA di Art Jakarta — koin edisi terbatas hasil kolaborasi perupa" [ref=e325] [cursor=pointer]:
+              - /url: "#kabar"
+          - paragraph [ref=e326]: Seri koin emas 5 gram hasil kolaborasi dengan tiga perupa Indonesia dipamerkan di JIExpo. Setiap keping dicetak terbatas dan dilengkapi sertifikat keaslian bernomor.
+          - generic [ref=e327]:
+            - link "Selengkapnya" [ref=e328] [cursor=pointer]:
+              - /url: "#kabar"
+            - generic [ref=e332]: 3–7 Sep, JIExpo
+    - region [ref=e333]:
+      - generic [ref=e335]:
+        - heading "Mitra distribusi" [level=2] [ref=e336]
+        - generic [ref=e337]:
+          - generic [ref=e338]: DANA
+          - generic [ref=e339]: SHOPEE
+          - generic [ref=e340]: BAREKSA
+          - generic [ref=e341]: BUKALAPAK
+          - generic [ref=e342]: FLIP
+          - generic [ref=e343]: CERMATI
+          - generic [ref=e344]: NANOVEST
+    - region [ref=e345]:
+      - generic [ref=e347]:
+        - generic [ref=e348]:
+          - paragraph [ref=e349]: Bantuan
+          - heading "Pertanyaan umum" [level=2] [ref=e350]
+        - generic [ref=e352]:
+          - group [ref=e353]:
+            - generic [ref=e354] [cursor=pointer]:
+              - heading "Apakah emas di aplikasi SUVARNA benar-benar ada fisiknya?" [level=3] [ref=e355]
+              - generic [aria-hidden] [ref=e356]: +
+          - group [ref=e357]:
+            - generic [ref=e358] [cursor=pointer]:
+              - heading "Berapa minimum pembelian emas di SUVARNA?" [level=3] [ref=e359]
+              - generic [aria-hidden] [ref=e360]: +
+          - group [ref=e361]:
+            - generic [ref=e362] [cursor=pointer]:
+              - heading "Bisakah saldo emas digital dicetak jadi emas fisik?" [level=3] [ref=e363]
+              - generic [aria-hidden] [ref=e364]: +
+          - group [ref=e365]:
+            - generic [ref=e366] [cursor=pointer]:
+              - heading "Berapa spread beli dan jual di SUVARNA?" [level=3] [ref=e367]
+              - generic [aria-hidden] [ref=e368]: +
+          - group [ref=e369]:
+            - generic [ref=e370] [cursor=pointer]:
+              - heading "Apakah SUVARNA punya izin resmi?" [level=3] [ref=e371]
+              - generic [aria-hidden] [ref=e372]: +
+    - region [ref=e373]:
+      - generic [ref=e374]:
+        - generic [ref=e375]:
+          - heading "Gram pertama kamu, sore ini." [level=2] [ref=e376]
+          - generic [ref=e377]:
+            - link "App Store" [ref=e378] [cursor=pointer]:
+              - /url: "#unduh"
+            - link "Google Play" [ref=e382] [cursor=pointer]:
+              - /url: "#unduh"
+          - paragraph [ref=e386]: Verifikasi identitas ±3 menit. Tanpa biaya buka rekening.
+        - 'img "Tampilan aplikasi SUVARNA: saldo emas 12,4805 gram beserta harga beli dan jual hari ini" [ref=e389]'
+  - contentinfo [ref=e390]:
+    - generic [ref=e392]:
+      - generic [ref=e393]:
+        - generic [ref=e394]: SUVARNA
+        - paragraph [ref=e395]: PT Suvarna Logam NusantaraTrembesi Tower Lt. 13, CBD BSD, Tangerang Selatan 15311+62 21 2789 9700
+      - generic [ref=e396]:
+        - heading "PRODUK" [level=2] [ref=e397]
+        - generic [ref=e398]:
+          - link "Emas Digital" [ref=e399] [cursor=pointer]:
+            - /url: "#top"
+          - link "Logam Mulia" [ref=e400] [cursor=pointer]:
+            - /url: "#top"
+          - link "Koin Emas" [ref=e401] [cursor=pointer]:
+            - /url: "#top"
+          - link "Perhiasan" [ref=e402] [cursor=pointer]:
+            - /url: "#top"
+          - link "Buyback" [ref=e403] [cursor=pointer]:
+            - /url: "#top"
+      - generic [ref=e404]:
+        - heading "DUKUNGAN" [level=2] [ref=e405]
+        - generic [ref=e406]:
+          - link "Pusat Bantuan" [ref=e407] [cursor=pointer]:
+            - /url: "#top"
+          - link "Informasi" [ref=e408] [cursor=pointer]:
+            - /url: "#top"
+          - link "Syarat & Ketentuan" [ref=e409] [cursor=pointer]:
+            - /url: "#top"
+          - link "Kebijakan Privasi" [ref=e410] [cursor=pointer]:
+            - /url: "#top"
+          - link "Karier" [ref=e411] [cursor=pointer]:
+            - /url: "#top"
+      - generic [ref=e412]:
+        - heading "PROGRAM" [level=2] [ref=e413]
+        - generic [ref=e414]:
+          - link "Gold for Good" [ref=e415] [cursor=pointer]:
+            - /url: "#top"
+          - link "Green Gold" [ref=e416] [cursor=pointer]:
+            - /url: "#top"
+          - link "Golden Generation" [ref=e417] [cursor=pointer]:
+            - /url: "#top"
+      - generic [ref=e418]:
+        - heading "PERUSAHAAN" [level=2] [ref=e419]
+        - generic [ref=e420]:
+          - link "Profil" [ref=e421] [cursor=pointer]:
+            - /url: "#top"
+          - link "Tata Kelola" [ref=e422] [cursor=pointer]:
+            - /url: "#top"
+          - link "Keamanan Informasi" [ref=e423] [cursor=pointer]:
+            - /url: "#top"
+          - link "Whistleblowing" [ref=e424] [cursor=pointer]:
+            - /url: "#top"
+    - generic [ref=e425]:
+      - generic [ref=e426]: © 2026 SUVARNA · BAPPEBTI 004/BAPPEBTI/P-ED/2024
+      - generic [ref=e427]:
+        - link "Instagram" [ref=e428] [cursor=pointer]:
+          - /url: https://instagram.com/suvarna
+        - link "TikTok" [ref=e429] [cursor=pointer]:
+          - /url: https://tiktok.com/@suvarna
+        - link "YouTube" [ref=e430] [cursor=pointer]:
+          - /url: https://youtube.com/@suvarna
+        - link "X" [ref=e431] [cursor=pointer]:
+          - /url: https://x.com/suvarna
+        - link "LinkedIn" [ref=e432] [cursor=pointer]:
+          - /url: https://linkedin.com/company/suvarna
