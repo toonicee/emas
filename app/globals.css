@@ -77,6 +77,39 @@
   --container-shell: 1440px;
 }
 
+/* -----------------------------------------------------------------------------
+   Mandarin — rantai fallback CJK.
+
+   Fraunces dan Inter sama sekali tidak punya glif Han, jadi tanpa aturan ini
+   aksara Tionghoa jatuh ke generic `serif`/`sans-serif` bawaan sistem — di
+   Windows itu SimSun, yang kelihatan usang dan tidak sepadan dengan halaman
+   lainnya.
+
+   Sengaja TIDAK memuat webfont CJK: berkas Noto Sans/Serif SC berukuran 5–10 MB
+   karena harus memuat puluhan ribu glif, dan `next/font` tidak bisa men-subset
+   CJK seperti ia men-subset Latin. Memuatnya berarti menukar seluruh anggaran
+   performa halaman demi satu bahasa. Font CJK sistem sudah terpasang di semua
+   platform target dan berkualitas baik, jadi itu yang dipakai.
+
+   Latin tetap dirender Fraunces/Inter: keduanya berada lebih awal di rantai,
+   dan browser hanya turun ke keluarga CJK untuk aksara yang tidak ada glifnya.
+   ----------------------------------------------------------------------------- */
+.ddsm-zh {
+  --font-serif:
+    var(--font-fraunces, ui-serif), "Noto Serif CJK SC", "Source Han Serif SC", "Songti SC",
+    "STSong", SimSun, Georgia, serif;
+  --font-sans:
+    var(--font-inter), "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC",
+    "Source Han Sans SC", "Microsoft YaHei", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Baris Han lebih padat daripada Latin pada ukuran yang sama; sedikit tambahan
+   leading menjaga teks tetap lega dibaca. */
+.ddsm-zh p,
+.ddsm-zh li {
+  line-height: 1.85;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;

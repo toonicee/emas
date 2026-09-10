@@ -2,9 +2,6 @@ import type { Dict } from "./types";
 
 export const en: Dict = {
   locale: "en",
-  htmlLang: "en",
-  langName: "English",
-  flag: "🇬🇧",
 
   nav: [
     { label: "Wealth", slug: "wealth" },
@@ -50,24 +47,28 @@ export const en: Dict = {
       sideHeading: "Build a stronger financial foundation. Start your gold savings journey today.",
       body: "PT Datar Dana Sukses Makmur is changing how Indonesians access and manage gold. As a digital retail trading platform, we pair the reliability of high-purity gold with the flexibility of modern technology. Through a single integrated platform, customers can buy, save, sell, and redeem gold conveniently, securely, and transparently.",
     },
-    pillars: [
-      {
-        title: "Certified physical gold",
-        desc: "Verified purity and physical ownership genuinely registered in your name.",
+    bento: {
+      certified: {
+        title: "Certified Physical Gold, Guaranteed",
+        desc: "Authenticated purity and physical ownership you can trust.",
       },
-      {
-        title: "Live, open pricing",
-        desc: "Gold prices move in real time, with every cost shown before you confirm.",
+      rates: {
+        title: "Transparent Live Rates",
+        desc: "Real-time gold prices updated live for maximum transparency.",
       },
-      {
-        title: "Licensed and compliant",
-        desc: "Held to strict regulatory standards, with legal protection over what you own.",
+      compliant: {
+        title: "Fully Compliant & Licensed",
+        desc: "Strictly regulated to guarantee maximum legal protection for your investments.",
       },
-      {
-        title: "Legacy asset protection",
-        desc: "Gold stays secure and can be passed on without a tangled process.",
+      legacy: {
+        title: "Legacy Asset Protection",
+        desc: "Ensure your gold is safely and directly transferable to your loved ones.",
       },
-    ],
+      cta: {
+        title: "Your gold journey starts here",
+        desc: "A simpler way to buy, sell, and invest in gold.",
+      },
+    },
     market: {
       eyebrow: "Live pricing",
       heading: "Market Summary",

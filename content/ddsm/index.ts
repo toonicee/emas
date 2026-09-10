@@ -1,10 +1,11 @@
 import { id } from "./id";
 import { en } from "./en";
+import { zh } from "./zh";
 import { LOCALES, type Dict, type Locale, type PageSlug } from "./types";
 
 export * from "./types";
 
-const DICTS: Record<Locale, Dict> = { id, en };
+const DICTS: Record<Locale, Dict> = { id, en, zh };
 
 export function isLocale(value: string): value is Locale {
   return (LOCALES as readonly string[]).includes(value);
@@ -12,11 +13,6 @@ export function isLocale(value: string): value is Locale {
 
 export function getDict(locale: Locale): Dict {
   return DICTS[locale];
-}
-
-/** Bahasa lain — dipakai pemilih bahasa dan tag hreflang. */
-export function otherLocale(locale: Locale): Locale {
-  return locale === "id" ? "en" : "id";
 }
 
 export const ddsmSite = {

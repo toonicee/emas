@@ -1,11 +1,40 @@
 /**
- * Bentuk kamus DDSM. Kedua bahasa memakai tipe yang sama persis, jadi kalau
+ * Bentuk kamus DDSM. Ketiga bahasa memakai tipe yang sama persis, jadi kalau
  * satu bahasa lupa mengisi sebuah field, TypeScript langsung menolaknya —
  * bukan ketahuan belakangan sebagai teks kosong di halaman produksi.
  */
 
-export const LOCALES = ["id", "en"] as const;
+/* Urutan di sini adalah urutan tampil di dropdown pemilih bahasa. */
+export const LOCALES = ["id", "en", "zh"] as const;
 export type Locale = (typeof LOCALES)[number];
+
+export type LocaleMeta = {
+  /** Nilai atribut lang & hreflang: "id-ID", "en", "zh-Hans". */
+  htmlLang: string;
+  /** Ditulis dalam bahasa itu sendiri — dropdown menampilkan seluruh pilihan
+      dengan nama aslinya, karena pemakai yang mencari "中文" belum tentu
+      mengenali label "Chinese". */
+  name: string;
+  /** Label ringkas di tombol dropdown. */
+  code: string;
+  flag: string;
+};
+
+/**
+ * Identitas ketiga bahasa. Sengaja tabel tersendiri, BUKAN field di dalam tiap
+ * Dict: pemilih bahasa perlu tahu nama ketiganya sekaligus, jadi kalau datanya
+ * tersebar di masing-masing kamus, komponen klien terpaksa mengimpor seluruh
+ * kamus — dan ikut menyeret ~1.400 baris copy ke bundel browser hanya demi
+ * tiga nama bahasa.
+ *
+ * `Record<Locale, ...>` yang menjaga kelengkapannya: menambah bahasa di LOCALES
+ * tanpa mengisi metanya di sini langsung ditolak TypeScript.
+ */
+export const LOCALE_META: Record<Locale, LocaleMeta> = {
+  id: { htmlLang: "id-ID", name: "Bahasa Indonesia", code: "ID", flag: "🇮🇩" },
+  en: { htmlLang: "en", name: "English", code: "EN", flag: "🇬🇧" },
+  zh: { htmlLang: "zh-Hans", name: "简体中文", code: "中文", flag: "🇨🇳" },
+};
 
 export const PAGE_SLUGS = ["wealth", "digital-gold", "physical-gold", "info", "company"] as const;
 export type PageSlug = (typeof PAGE_SLUGS)[number];
@@ -29,10 +58,6 @@ export type SubPage = {
 
 export type Dict = {
   locale: Locale;
-  htmlLang: string;
-  /** Nama bahasa + bendera untuk pemilih bahasa. */
-  langName: string;
-  flag: string;
 
   nav: { label: string; slug: PageSlug }[];
 
@@ -59,7 +84,19 @@ export type Dict = {
     };
     ticker: { date: string; label: string; buy: string; sell: string; buyDelta: string; sellDelta: string };
     intro: { eyebrow: string; heading: string; sideHeading: string; body: string };
-    pillars: Feature[];
+    /**
+     * Lima kartu bento di beranda. Sengaja objek berkunci, bukan array: tiap
+     * kartu punya perlakuan visual sendiri (warna, gambar, lebar kolom), jadi
+     * urutan array tidak boleh jadi satu-satunya yang mengikat copy ke
+     * tampilannya — menyisipkan satu item bakal menggeser semua gambar.
+     */
+    bento: {
+      certified: Feature;
+      rates: Feature;
+      compliant: Feature;
+      legacy: Feature;
+      cta: Feature;
+    };
     market: { eyebrow: string; heading: string; lead: string; cols: [string, string, string, string]; available: string };
     contact: {
       eyebrow: string;

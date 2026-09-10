@@ -2,9 +2,6 @@ import type { Dict } from "./types";
 
 export const id: Dict = {
   locale: "id",
-  htmlLang: "id-ID",
-  langName: "Indonesia",
-  flag: "🇮🇩",
 
   nav: [
     { label: "Kekayaan", slug: "wealth" },
@@ -50,24 +47,28 @@ export const id: Dict = {
       sideHeading: "Bangun fondasi keuangan yang lebih kuat. Mulai perjalanan menabung emas kamu hari ini.",
       body: "PT Datar Dana Sukses Makmur mengubah cara orang Indonesia mengakses dan mengelola emas. Sebagai platform perdagangan ritel digital, kami memadukan keandalan emas berkadar tinggi dengan keluwesan teknologi modern. Lewat satu platform terpadu, pelanggan bisa membeli, menabung, menjual, dan menarik emas secara nyaman, aman, dan transparan.",
     },
-    pillars: [
-      {
-        title: "Emas fisik bersertifikat",
+    bento: {
+      certified: {
+        title: "Emas Fisik Bersertifikat, Terjamin",
         desc: "Kemurnian terverifikasi dan kepemilikan fisik yang benar-benar atas nama kamu.",
       },
-      {
-        title: "Harga langsung dan terbuka",
-        desc: "Harga emas bergerak real-time dengan rincian biaya yang ditampilkan sebelum konfirmasi.",
+      rates: {
+        title: "Harga Langsung yang Transparan",
+        desc: "Harga emas real-time, diperbarui langsung demi transparansi penuh.",
       },
-      {
-        title: "Berizin dan patuh",
-        desc: "Mengikuti standar regulasi yang ketat, dengan perlindungan hukum atas kepemilikan kamu.",
+      compliant: {
+        title: "Berizin & Patuh Regulasi",
+        desc: "Diatur ketat untuk menjamin perlindungan hukum maksimal atas investasimu.",
       },
-      {
-        title: "Perlindungan aset warisan",
-        desc: "Emas tersimpan aman dan bisa diwariskan tanpa proses yang berbelit.",
+      legacy: {
+        title: "Perlindungan Aset Warisan",
+        desc: "Pastikan emasmu aman dan bisa langsung diwariskan kepada orang terkasih.",
       },
-    ],
+      cta: {
+        title: "Perjalanan emasmu dimulai di sini",
+        desc: "Cara yang lebih sederhana untuk membeli, menjual, dan berinvestasi emas.",
+      },
+    },
     market: {
       eyebrow: "Harga berjalan",
       heading: "Ringkasan Pasar",
@@ -244,7 +245,7 @@ export const id: Dict = {
       metaDescription:
         "Tukar saldo digital jadi logam mulia 99,99%, koin emas, atau perhiasan bersertifikat. Diantar berasuransi ke seluruh Indonesia.",
       intro: {
-        heading: "Dari saldo ke logam, kapan pun kamu mau",
+       heading: "Dari saldo ke logam, kapan pun kamu mau",
         body: [
           "Emas digital memudahkan transaksi, tapi sebagian orang tetap ingin memegang logamnya. Keduanya tidak harus dipilih salah satu — saldo di aplikasi bisa ditukar menjadi bentuk fisik kapan pun tanpa perlu menjual dulu.",
           "Setiap keping yang kami kirim datang dengan sertifikat kadar dan berat, dikemas tersegel, dan diasuransikan sepanjang perjalanan sampai diterima di alamat kamu.",

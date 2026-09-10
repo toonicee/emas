@@ -17,10 +17,6 @@ export function Header({ dict }: { dict: Dict }) {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  /* Tutup panel begitu rute berubah — kalau tidak, menu tetap terbuka
-     menutupi halaman tujuan setelah navigasi client-side. */
-  useEffect(() => setOpen(false), [pathname]);
-
   const isActive = (href: string) => pathname === href;
 
   return (
@@ -86,6 +82,10 @@ export function Header({ dict }: { dict: Dict }) {
                   key={item.slug}
                   href={href}
                   aria-current={isActive(href) ? "page" : undefined}
+                  /* Ditutup di sini, bukan lewat useEffect atas perubahan
+                     pathname: setState di dalam effect dilarang React Compiler,
+                     dan menutup di handler klik lebih langsung. */
+                  onClick={() => setOpen(false)}
                   className="border-b border-white/10 py-3.5 text-[15px] font-medium last:border-b-0"
                 >
                   {item.label}
@@ -94,6 +94,7 @@ export function Header({ dict }: { dict: Dict }) {
             })}
             <a
               href="#contact"
+              onClick={() => setOpen(false)}
               className="mt-4 mb-4 inline-flex w-fit items-center gap-2 rounded-md bg-ddsm-gold px-5 py-3 text-[14px] font-semibold text-ddsm-forest"
             >
               {dict.common.invest}
