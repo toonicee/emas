@@ -39,6 +39,15 @@ export const LOCALE_META: Record<Locale, LocaleMeta> = {
 export const PAGE_SLUGS = ["wealth", "digital-gold", "physical-gold", "info", "company"] as const;
 export type PageSlug = (typeof PAGE_SLUGS)[number];
 
+/**
+ * Kunci kategori formulir kontak. Label tiap bahasa ada di kamus; yang dikirim
+ * formulir dan divalidasi server adalah KUNCINYA, lalu Server Action
+ * memetakannya ke label Indonesia sebelum menulis ke Google Sheet — jadi
+ * kolom Kategori seragam apa pun bahasa pengirimnya.
+ */
+export const CONTACT_CATEGORIES = ["purchase", "storage", "account", "withdrawal", "other"] as const;
+export type ContactCategory = (typeof CONTACT_CATEGORIES)[number];
+
 export type Feature = { title: string; desc: string };
 export type FaqItem = { q: string; a: string };
 export type PriceRow = { weight: string; buy: string; sell: string };
@@ -111,7 +120,28 @@ export type Dict = {
         message: string; messagePh: string;
         consent: string; submit: string;
       };
-      categories: string[];
+      categories: Record<ContactCategory, string>;
+      /** Pesan setelah formulir dikirim (ContactForm). */
+      status: {
+        sending: string;
+        successTitle: string;
+        successBody: string;
+        /** Petunjuk di bawah tombol kirim yang sedang nonaktif. */
+        hint: string;
+        invalid: string;
+        error: string;
+      };
+      /** Pesan galat per kolom — satu per JENIS kesalahan, bukan per kolom,
+          karena "wajib diisi" berlaku sama untuk semua kolom wajib. Kuncinya
+          = ContactErrorKey di lib/ddsm-contact-rules.ts. */
+      errors: {
+        required: string;
+        email: string;
+        phone: string;
+        category: string;
+        consent: string;
+        tooLong: string;
+      };
     };
   };
 

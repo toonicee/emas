@@ -299,6 +299,74 @@ node scripts/render-ddsm-assets.cjs
 Kualitas penyajian memakai default Next (75). Teks di dalam kartu sudah dicek
 tetap tajam pada kualitas itu, jadi `images.qualities` tidak perlu ditambah.
 
+### Formulir kontak → Google Sheet
+
+Formulir "Send Us a Message" menyimpan setiap kiriman sebagai satu baris di
+Google Sheet:
+
+```
+ContactForm (klien) → submitContact (Server Action, app/ddsm/contact-action.ts)
+                   → Web App Google Apps Script → baris baru di Sheet "Pesan Masuk"
+```
+
+**Memasang (sekali saja).** Langkah lengkapnya ada di kepala
+[`scripts/google-apps-script/ddsm-contact.gs`](scripts/google-apps-script/ddsm-contact.gs):
+buat Sheet → Extensions → Apps Script → tempel berkas itu → isi Script property
+`DDSM_SHEETS_SECRET` → Deploy sebagai Web app (*Execute as: Me*, *Who has
+access: Anyone*). Lalu isi dua env server (lihat [`.env.example`](.env.example)):
+
+| Env | Isi |
+|---|---|
+| `DDSM_SHEETS_WEBHOOK_URL` | URL Web app yang berakhiran `/exec` |
+| `DDSM_SHEETS_SECRET` | string acak yang sama dengan Script property di Apps Script |
+
+Kolom yang tercatat: Waktu, Nama, Email, Telepon, Kategori, Pesan, Bahasa, Halaman.
+Kategori selalu ditulis dengan label Indonesia apa pun bahasa pengirimnya:
+formulir mengirim *kunci* kategori (`CONTACT_CATEGORIES` di `types.ts`), dan
+Server Action yang memetakannya.
+
+**Validasi.** Aturannya ada di satu tempat,
+[`lib/ddsm-contact-rules.ts`](lib/ddsm-contact-rules.ts), dan dipakai browser
+maupun server — kalau ditulis dua kali, cepat atau lambat keduanya berbeda.
+Nama, email, telepon, kategori, dan persetujuan wajib; email harus berdomain
+bertitik; telepon 8–15 digit (batas E.164), boleh diawali `+` dan memakai
+spasi/tanda hubung/kurung sebagai pemisah; pesan maksimal 5000 karakter.
+
+- Pesan galat muncul di bawah kolom setelah kolom itu ditinggalkan, bukan
+  sejak huruf pertama diketik.
+- Tombol kirim nonaktif sampai semua kolom wajib valid, dengan petunjuk di
+  bawahnya. Tombol baru dinonaktifkan **setelah hidrasi** — kalau sudah
+  nonaktif sejak HTML server, pengunjung tanpa JavaScript tidak akan pernah
+  bisa mengirim. Mereka tetap dijaga validasi bawaan browser dan server.
+- Setelah berhasil: pesan berhasil tampil di atas formulir yang sudah
+  dikosongkan, dan fokus dipindah ke pesan itu supaya pembaca layar
+  membacakannya. Pesan hilang begitu pengunjung mulai mengetik lagi.
+
+**Keamanan.** Server Action adalah endpoint POST publik, jadi:
+
+- semua isian divalidasi ulang di server dengan aturan yang sama — validasi
+  di browser hanya kenyamanan, bukan pengaman;
+- URL dan secret Apps Script hanya ada di env server dan Script properties,
+  tidak pernah dikirim ke browser. Tanpa secret yang cocok, Apps Script
+  menolak menulis;
+- kolom *honeypot* tersembunyi menjebak bot; kiriman bot "berhasil" di mata bot
+  tapi tidak pernah sampai ke Sheet;
+- Apps Script menulis setiap nilai sebagai teks (awalan `'`), sehingga isian
+  seperti `=IMPORTXML(…)` tidak dieksekusi sebagai rumus dan nomor `0812…`
+  tidak kehilangan nol di depannya;
+- pemeriksaan `Origin` (CSRF) dan batas body 1 MB sudah dari Next.
+
+Belum ada *rate limiting*: satu pemanggil bisa mengirim berulang kali. Kalau
+spam mulai masuk, tambahkan pembatas per-IP di action atau pasang Turnstile /
+reCAPTCHA. Sheet ini berisi data pribadi (nama, email, telepon) — batasi siapa
+yang punya akses ke sana.
+
+**Tanpa JavaScript** formulir tetap berfungsi: `action`-nya Server Action, jadi
+browser mengirimnya sebagai POST biasa dan halaman dirender ulang dengan
+hasilnya. **Kalau env belum di-set**, formulir menampilkan pesan gagal dan
+server mencatat `[ddsm-contact] … belum di-set` — pesan pengunjung tidak
+tersimpan, jadi pastikan kedua env terisi sebelum rilis.
+
 ### Dua jebakan lintas-merek yang sudah ditutup
 
 Metadata dan JSON-LD di App Router **diwariskan ke seluruh rute**. Karena repo
