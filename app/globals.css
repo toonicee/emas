@@ -332,3 +332,37 @@
     transition: none !important;
   }
 }
+
+/* ---------------------------------------------------------------------------
+   Parallax lingkaran hero DDSM — scroll-driven animation, murni CSS.
+
+   Timeline-nya scroll dokumen (animation-timeline: scroll()), jadi dijalankan
+   compositor tanpa satu pun listener scroll di JavaScript — konsisten dengan
+   aturan "tidak ada listener scroll". Hanya `translate` dan `scale`: tidak
+   memicu layout, nol CLS. Pada progres 0 (halaman di posisi teratas) tidak ada
+   perubahan apa pun, jadi LCP tidak terpengaruh.
+
+   `translate` sengaja diulang -50% di sumbu X: Tailwind v4 menaruh
+   -translate-x-1/2 di properti `translate` yang sama, dan animasi menimpa
+   seluruh nilainya.
+
+   Peningkatan progresif ganda: browser tanpa dukungan scroll-driven animation
+   (@supports) atau pengguna dengan prefers-reduced-motion mendapat lingkaran
+   diam seperti sebelumnya.
+   --------------------------------------------------------------------------- */
+@keyframes ddsm-hero-parallax {
+  to {
+    translate: -50% 110px;
+    scale: 1.08;
+  }
+}
+
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .ddsm-hero-parallax {
+      animation: ddsm-hero-parallax linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 560px;
+    }
+  }
+}

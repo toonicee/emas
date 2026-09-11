@@ -22,7 +22,7 @@ sisanya secara default sebagai langkah keamanan.
 | Next.js 16 (App Router, Turbopack) | seluruh halaman SSG |
 | React 19 + React Compiler | memoisasi otomatis, `reactCompiler: true` |
 | Tailwind CSS v4 | config CSS-first di `app/globals.css` (`@theme`) |
-| Animasi | CSS transition + IntersectionObserver — **tanpa library** |
+| Animasi | CSS transition + IntersectionObserver, **tanpa library** — kecuali lingkaran hero DDSM (Three.js, dimuat lazy) |
 
 ## Sistem desain
 
@@ -212,6 +212,51 @@ identik. Gambar ini memakai `preload` — pengganti `priority` di Next 16 —
 karena merupakan kandidat LCP. Kartu harga duduk tepat di garis batas hero,
 dan seksi intro di bawahnya berlatar `#e2ded8` supaya garis itu tampak seperti
 di komp.
+
+**Animasi hero (Three.js).** [`HeroGold.tsx`](components/ddsm/HeroGold.tsx)
+menghidupkan lingkaran emas lewat shader di atas tekstur yang sama: permukaan
+bergelombang pelan seperti emas cair, kilau yang menyapu, dan riak yang
+mengikuti kursor. Ini peningkatan progresif — gambar statis tetap dirender
+server dan tetap elemen LCP (kanvas WebGL bukan kandidat LCP), dan tanpa
+JS/WebGL tampilannya tidak berubah. Aturan mainnya, semuanya sudah diukur:
+
+- Three.js (**±180 kB gz**) dimuat lewat `import()` setelah hidrasi, sebagai
+  chunk terpisah. First Load JS beranda naik 143 → 148 kB — itu komponen
+  pembungkusnya; Three.js sendiri tidak termasuk.
+- Tidak dimuat sama sekali bila `prefers-reduced-motion: reduce` atau Save-Data
+  aktif: tidak ada kanvas, dan chunk Three.js tidak terunduh.
+- Tekstur memakai URL yang sudah dimuat `<img>` (`currentSrc`), jadi tidak ada
+  unduhan tambahan.
+- Loop render berhenti saat hero di luar layar atau tab tersembunyi: 60
+  rAF/detik saat terlihat, 0 setelah digulir. Tidak ada listener scroll.
+- Kalau konteks WebGL dicabut GPU, kanvas dilepas dan gambar statis kembali
+  tampil.
+
+Pusat dan jari-jari lingkaran di shader (konstanta `CIRCLE`) diturunkan dari
+geometri `ellipse.svg`. Kalau SVG itu diganti dengan bentuk lain, konstanta itu
+ikut disesuaikan — kalau tidak, peredaman distorsi di tepi lingkaran meleset
+dan muncul pinggiran gelap.
+
+**Animasi scroll.** Halaman DDSM memakai primitif yang sama dengan SUVARNA —
+`Reveal` dan `Stagger` di `components/motion/` — jadi keempat prinsip di atas
+berlaku otomatis: HTML server selalu terlihat penuh (`data-phase="open"`),
+elemen baru disembunyikan setelah hidrasi dan hanya kalau masih di bawah
+lipatan, lalu muncul lewat IntersectionObserver; hanya `opacity`/`transform`.
+Yang dianimasikan: judul seksi, kolom pengantar, kartu bento dan kartu fitur
+(berantai), tabel Ringkasan Pasar, FAQ, blok CTA, dan form kontak. Hero beserta
+`<h1>`-nya sengaja tidak.
+
+- Daftar semantik (`<ol>` langkah, daftar FAQ) dibungkus `Reveal` utuh, bukan
+  `Stagger`: Stagger membungkus tiap anak dengan `<div>`, dan `<div>` di dalam
+  `<ol>` tidak valid.
+- Pembungkus reveal yang menjadi item grid diberi `min-w-0`. Tanpa itu,
+  `min-width` 520px tabel harga mendorong kolomnya dan halaman melebar di ponsel.
+
+Lingkaran hero juga bergerak saat halaman digulir: turun perlahan dan sedikit
+membesar (parallax), lewat CSS scroll-driven animation
+(`animation-timeline: scroll()`, kelas `.ddsm-hero-parallax` di globals.css).
+Dijalankan compositor tanpa listener scroll, dan diam saja di browser yang
+belum mendukungnya atau bila pengguna meminta gerak dikurangi.
 
 **Bento beranda.** Seksi di bawah intro berisi lima kartu bento: dua sama lebar
 di baris atas, tiga di baris bawah dengan lebar 1 / 1 / 1,35. Rasio itu sengaja

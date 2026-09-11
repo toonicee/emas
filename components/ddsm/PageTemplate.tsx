@@ -1,3 +1,5 @@
+import { Reveal } from "@/components/motion/Reveal";
+import { Stagger } from "@/components/motion/Stagger";
 import type { Dict, SubPage } from "@/content/ddsm";
 import { Btn, Eyebrow, FeatureCard, SectionHeading, Shell } from "./ui";
 
@@ -7,6 +9,11 @@ import { Btn, Eyebrow, FeatureCard, SectionHeading, Shell } from "./ui";
  * Semua halaman memakai susunan yang sama — hero, pengantar, fitur, langkah,
  * FAQ, penutup — sehingga konsistensinya dijaga oleh satu berkas, bukan oleh
  * kedisiplinan menyalin markup lima kali.
+ *
+ * Animasi scroll memakai primitif bersama di components/motion (lihat README).
+ * Hero tidak dianimasikan karena <h1>-nya elemen LCP. Daftar semantik (<ol>
+ * langkah, daftar FAQ) dibungkus Reveal utuh, bukan Stagger: Stagger
+ * membungkus tiap anak dengan <div>, dan <div> di dalam <ol> tidak valid.
  */
 export function PageTemplate({ dict, page }: { dict: Dict; page: SubPage }) {
   return (
@@ -24,7 +31,7 @@ export function PageTemplate({ dict, page }: { dict: Dict; page: SubPage }) {
 
       <section className="bg-ddsm-sand py-20 lg:py-24">
         <Shell>
-          <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
+          <Stagger className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
             <h2 className="font-serif text-[28px] font-normal leading-[1.1] tracking-[-0.02em] text-ddsm-ink lg:text-[38px]">
               {page.intro.heading}
             </h2>
@@ -35,40 +42,46 @@ export function PageTemplate({ dict, page }: { dict: Dict; page: SubPage }) {
                 </p>
               ))}
             </div>
-          </div>
+          </Stagger>
         </Shell>
       </section>
 
       <section className="bg-ddsm-paper py-20 lg:py-24">
         <Shell>
-          <SectionHeading eyebrow={page.eyebrow} title={page.features.heading} lead={page.features.lead} />
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <Reveal>
+            <SectionHeading eyebrow={page.eyebrow} title={page.features.heading} lead={page.features.lead} />
+          </Reveal>
+          <Stagger className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {page.features.items.map((item, i) => (
               <FeatureCard key={item.title} title={item.title} desc={item.desc} index={i} />
             ))}
-          </div>
+          </Stagger>
         </Shell>
       </section>
 
       <section className="bg-ddsm-green py-20 text-ddsm-cream lg:py-24">
         <Shell>
-          <SectionHeading tone="light" title={page.steps.heading} lead={page.steps.lead} />
-          <ol className="mt-12 grid gap-px overflow-hidden rounded-lg bg-ddsm-rule-dk sm:grid-cols-2">
-            {page.steps.items.map((item) => (
-              <li key={item.title} className="bg-ddsm-green p-6 lg:p-8">
-                <h3 className="font-serif text-[20px] font-normal leading-tight text-white lg:text-[22px]">
-                  {item.title}
-                </h3>
-                <p className="mt-3 text-[15px] leading-[1.7] text-[#cfdccd]">{item.desc}</p>
-              </li>
-            ))}
-          </ol>
+          <Reveal>
+            <SectionHeading tone="light" title={page.steps.heading} lead={page.steps.lead} />
+          </Reveal>
+          <Reveal delay={0.08}>
+            <ol className="mt-12 grid gap-px overflow-hidden rounded-lg bg-ddsm-rule-dk sm:grid-cols-2">
+              {page.steps.items.map((item) => (
+                <li key={item.title} className="bg-ddsm-green p-6 lg:p-8">
+                  <h3 className="font-serif text-[20px] font-normal leading-tight text-white lg:text-[22px]">
+                    {item.title}
+                  </h3>
+                  <p className="mt-3 text-[15px] leading-[1.7] text-[#cfdccd]">{item.desc}</p>
+                </li>
+              ))}
+            </ol>
+          </Reveal>
         </Shell>
       </section>
 
       <section className="bg-ddsm-sand py-20 lg:py-24">
         <Shell>
-          <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+          <Stagger className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
             <SectionHeading title={page.faq.heading} />
             {/* <details> — nol JavaScript, aksesibel bawaan, dan seluruh
                 jawabannya tetap ada di HTML meski panelnya tertutup. */}
@@ -90,23 +103,25 @@ export function PageTemplate({ dict, page }: { dict: Dict; page: SubPage }) {
                 </details>
               ))}
             </div>
-          </div>
+          </Stagger>
         </Shell>
       </section>
 
       <section className="bg-ddsm-cream py-20 lg:py-24">
         <Shell>
-          <div className="flex flex-col items-start gap-8 rounded-xl bg-ddsm-green px-8 py-12 text-ddsm-cream lg:flex-row lg:items-center lg:justify-between lg:px-14 lg:py-14">
-            <div className="max-w-xl">
-              <h2 className="font-serif text-[28px] font-normal leading-[1.1] tracking-[-0.02em] text-white lg:text-[36px]">
-                {dict.cta.heading}
-              </h2>
-              <p className="mt-4 text-[16px] leading-[1.7] text-[#d5e0d3]">{dict.cta.body}</p>
+          <Reveal>
+            <div className="flex flex-col items-start gap-8 rounded-xl bg-ddsm-green px-8 py-12 text-ddsm-cream lg:flex-row lg:items-center lg:justify-between lg:px-14 lg:py-14">
+              <div className="max-w-xl">
+                <h2 className="font-serif text-[28px] font-normal leading-[1.1] tracking-[-0.02em] text-white lg:text-[36px]">
+                  {dict.cta.heading}
+                </h2>
+                <p className="mt-4 text-[16px] leading-[1.7] text-[#d5e0d3]">{dict.cta.body}</p>
+              </div>
+              <div className="flex shrink-0 flex-wrap gap-3">
+                <Btn href="#contact" tone="gold">{dict.cta.primary}</Btn>
+              </div>
             </div>
-            <div className="flex shrink-0 flex-wrap gap-3">
-              <Btn href="#contact" tone="gold">{dict.cta.primary}</Btn>
-            </div>
-          </div>
+          </Reveal>
         </Shell>
       </section>
     </>

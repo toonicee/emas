@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { ContactSection } from "@/components/ddsm/ContactSection";
+import { HeroGold } from "@/components/ddsm/HeroGold";
+import { Reveal } from "@/components/motion/Reveal";
+import { Stagger } from "@/components/motion/Stagger";
 import { SectionHeading, Shell } from "@/components/ddsm/ui";
 import { getDict, isLocale, prices, type Feature } from "@/content/ddsm";
 import { ddsmMetadata } from "@/lib/ddsm-seo";
@@ -125,15 +128,23 @@ export default async function DdsmHome({
         <h1> tidak dianimasikan — lihat prinsip SEO di README.
       */}
       <section className="relative isolate overflow-hidden bg-ddsm-sand">
-        <Image
-          src="/images/ddsm/hero-ellipse.webp"
-          alt=""
-          width={1880}
-          height={1760}
-          preload
-          sizes="(max-width: 767px) 160vw, 720px"
-          className="pointer-events-none absolute left-1/2 top-[-80px] -z-10 w-[160vw] max-w-none -translate-x-1/2 md:top-[-120px] md:w-[720px]"
-        />
+        {/* HeroGold menghidupkan lingkaran ini dengan Three.js setelah hidrasi
+            (lihat komponennya). Gambarnya sendiri tetap dirender server dan
+            tetap elemen LCP; tanpa JS/WebGL, atau bila pengguna meminta gerak
+            dikurangi, hanya gambar ini yang tampil. Saat halaman digulir,
+            .ddsm-hero-parallax menurunkan dan sedikit membesarkannya —
+            animasi CSS scroll-driven, tanpa listener scroll (globals.css). */}
+        <HeroGold className="ddsm-hero-parallax pointer-events-none absolute left-1/2 top-[-80px] -z-10 w-[160vw] -translate-x-1/2 md:top-[-120px] md:w-[720px]">
+          <Image
+            src="/images/ddsm/hero-ellipse.webp"
+            alt=""
+            width={1880}
+            height={1760}
+            preload
+            sizes="(max-width: 767px) 160vw, 720px"
+            className="block h-auto w-full max-w-none"
+          />
+        </HeroGold>
 
         <div className="mx-auto max-w-3xl px-5 pb-[118px] pt-10 text-center sm:px-8 md:pt-12">
           <h1 className="mx-auto max-w-[9.6em] text-balance break-keep font-serif text-[40px] font-normal leading-[1.1] tracking-[-0.01em] text-[#111] sm:text-[54px] lg:text-[64px]">
@@ -181,20 +192,22 @@ export default async function DdsmHome({
 
       <section className="bg-[#e2ded8] pb-20 pt-16 lg:pb-24 lg:pt-20">
         <Shell>
-          <SectionHeading
-            align="center"
-            eyebrow={dict.home.intro.eyebrow}
-            title={dict.home.intro.heading}
-          />
+          <Reveal>
+            <SectionHeading
+              align="center"
+              eyebrow={dict.home.intro.eyebrow}
+              title={dict.home.intro.heading}
+            />
+          </Reveal>
 
-          <div className="mt-14 grid gap-10 lg:grid-cols-2 lg:gap-16">
+          <Stagger className="mt-14 grid gap-10 lg:grid-cols-2 lg:gap-16">
             <h3 className="max-w-md font-serif text-[26px] font-normal leading-[1.15] tracking-[-0.02em] text-ddsm-ink lg:text-[34px]">
               {dict.home.intro.sideHeading}
             </h3>
             <p className="text-[16px] leading-[1.8] text-ddsm-body">
               {dict.home.intro.body}
             </p>
-          </div>
+          </Stagger>
 
           {/*
             Bento lima kartu. Gambarnya adalah kartu utuh dari komp desain
@@ -211,15 +224,15 @@ export default async function DdsmHome({
             tinggi tanpa perlu dipotong.
           */}
           <div className="mt-14 grid gap-4 lg:gap-5">
-            <div className="grid gap-4 md:grid-cols-2 lg:gap-5">
+            <Stagger className="grid gap-4 md:grid-cols-2 lg:gap-5">
               <BentoCard src="/images/ddsm/bento-1.webp" width={1182} height={570} sizes="(max-width: 768px) 100vw, 50vw" item={b.certified} />
               <BentoCard src="/images/ddsm/bento-2.webp" width={1182} height={570} sizes="(max-width: 768px) 100vw, 50vw" item={b.rates} />
-            </div>
-            <div className="grid gap-4 md:grid-cols-[1fr_1fr_1.35fr] lg:gap-5">
+            </Stagger>
+            <Stagger className="grid gap-4 md:grid-cols-[1fr_1fr_1.35fr] lg:gap-5">
               <BentoCard src="/images/ddsm/bento-3.webp" width={690} height={570} sizes="(max-width: 768px) 100vw, 30vw" item={b.compliant} />
               <BentoCard src="/images/ddsm/bento-4.webp" width={690} height={570} sizes="(max-width: 768px) 100vw, 30vw" item={b.legacy} />
               <BentoCard src="/images/ddsm/bento-5.webp" width={932} height={570} sizes="(max-width: 768px) 100vw, 40vw" item={b.cta} />
-            </div>
+            </Stagger>
           </div>
         </Shell>
       </section>
@@ -227,12 +240,17 @@ export default async function DdsmHome({
       <section className="bg-ddsm-paper py-20 lg:py-24">
         <Shell>
           <div className="grid gap-10 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16">
-            <SectionHeading
-              eyebrow={dict.home.market.eyebrow}
-              title={dict.home.market.heading}
-              lead={dict.home.market.lead}
-            />
+            <Reveal>
+              <SectionHeading
+                eyebrow={dict.home.market.eyebrow}
+                title={dict.home.market.heading}
+                lead={dict.home.market.lead}
+              />
+            </Reveal>
 
+            {/* min-w-0: pembungkus ini jadi item grid, dan tanpa itu min-width
+                520px milik tabel mendorong kolomnya — halaman melebar di ponsel. */}
+            <Reveal delay={0.08} className="min-w-0">
             <div className="overflow-x-auto rounded-xl border border-[#d5ded3] bg-white shadow-[0_12px_28px_rgba(44,60,43,0.07)]">
               <table className="w-full min-w-[520px] border-collapse text-left text-[14px]">
                 <caption className="sr-only">
@@ -272,6 +290,7 @@ export default async function DdsmHome({
                 </tbody>
               </table>
             </div>
+            </Reveal>
           </div>
         </Shell>
       </section>
