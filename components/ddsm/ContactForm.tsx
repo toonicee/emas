@@ -1,15 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import {
-  useActionState,
-  useEffect,
-  useRef,
-  useState,
-  useSyncExternalStore,
-  type ChangeEvent,
-  type FocusEvent,
-} from "react";
+import { useActionState, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { submitContact, type ContactState } from "@/app/ddsm/contact-action";
 import {
   checkContact,
@@ -44,6 +36,10 @@ const noopSubscribe = () => () => {};
     JavaScript jalan: kalau sudah nonaktif sejak HTML server, pengunjung tanpa
     JavaScript tidak akan pernah bisa mengirim formulir. */
 const useHydrated = () => useSyncExternalStore(noopSubscribe, () => true, () => false);
+
+/** Event formulir menandai target-nya sebagai HTMLFormElement; elemen yang
+    sebenarnya memicu event adalah kolom di dalamnya. */
+const asField = (t: EventTarget) => t as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
 
 function readForm(form: HTMLFormElement): ContactInput {
   const get = (n: string) => form.elements.namedItem(n) as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement | null;
@@ -111,15 +107,21 @@ function FormBody({
   const formRef = useRef<HTMLFormElement>(null);
   const hydrated = useHydrated();
   const pathname = usePathname();
-  const [errors, setErrors] = useState<ContactErrors>(() => checkContact(EMPTY));
-  const [touched, setTouched] = useState<Partial<Record<ContactField, true>>>({});
-  const [dirty, setDirty] = useState(false);
-
   const f = copy.fields;
   const s = copy.status;
   const failed = state.status === "invalid" || state.status === "error";
   const v = failed ? state.values : {};
   const serverBad = state.status === "invalid" ? state.fields : [];
+
+  /* Status awal dihitung dari isian yang dikembalikan server (kosong untuk
+     formulir baru). Tanpa JavaScript, hanya nilai awal inilah yang pernah
+     dipakai — kalau dihitung dari formulir kosong, telepon "12-34-56-7" yang
+     ditolak server akan diberi pesan "wajib diisi", bukan "format salah". */
+  const [errors, setErrors] = useState<ContactErrors>(() =>
+    checkContact({ ...EMPTY, ...v, consent: v.consent === "on" }),
+  );
+  const [touched, setTouched] = useState<Partial<Record<ContactField, true>>>({});
+  const [dirty, setDirty] = useState(false);
 
   const revalidate = () => {
     if (formRef.current) setErrors(checkContact(readForm(formRef.current)));
@@ -133,10 +135,10 @@ function FormBody({
      tanpa event input yang sempat ditangkap. Cek sekali setelah frame
      pertama; setState-nya di callback rAF, bukan langsung di badan effect. */
   useEffect(() => {
-    const id = requestAnimationFrame(revalidate);
+    const id = requestAnimationFrame(() => {
+      if (formRef.current) setErrors(checkContact(readForm(formRef.current)));
+    });
     return () => cancelAnimationFrame(id);
-    // revalidate hanya membaca ref; cukup sekali saat dipasang.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const valid = Object.keys(errors).length === 0;
@@ -148,7 +150,9 @@ function FormBody({
     return touched[k] ? (errors[k] ?? null) : null;
   };
   const describe = (k: ContactField) => (errorOf(k) ? { "aria-describedby": `ddsm-${k}-err` } : {});
-  const ErrorText = ({ k }: { k: ContactField }) => {
+  /* Fungsi biasa, bukan komponen: komponen yang didefinisikan di dalam render
+     dibuat ulang tiap render dan membuat React memasang ulang elemennya. */
+  const errorText = (k: ContactField) => {
     const e = errorOf(k);
     return e ? (
       <p id={`ddsm-${k}-err`} className="mt-1.5 text-[13px] leading-snug text-[#c62828]">
@@ -166,15 +170,15 @@ function FormBody({
         setDirty(true);
         revalidate();
       }}
-      onChange={(e: ChangeEvent<HTMLFormElement>) => {
+      onChange={(e) => {
         // Select dan checkbox dianggap "selesai diisi" begitu diubah.
-        const t = e.target as unknown as HTMLInputElement | HTMLSelectElement;
+        const t = asField(e.target);
         if (t.tagName === "SELECT" || (t as HTMLInputElement).type === "checkbox") touch(t.name);
         setDirty(true);
         revalidate();
       }}
-      onBlur={(e: FocusEvent<HTMLFormElement>) => {
-        touch((e.target as HTMLInputElement).name);
+      onBlur={(e) => {
+        touch(asField(e.target).name);
         revalidate();
       }}
       /* Jaring pengaman untuk autofill yang tidak memicu event input: begitu
@@ -225,7 +229,7 @@ function FormBody({
             {...describe("name")}
             className={`mt-2 h-11 ${control(!!errorOf("name"))}`}
           />
-          <ErrorText k="name" />
+          {errorText("name")}
         </div>
 
         <div>
@@ -247,7 +251,7 @@ function FormBody({
             {...describe("email")}
             className={`mt-2 h-11 ${control(!!errorOf("email"))}`}
           />
-          <ErrorText k="email" />
+          {errorText("email")}
         </div>
 
         <div>
@@ -273,7 +277,7 @@ function FormBody({
             {...describe("phone")}
             className={`mt-2 h-11 ${control(!!errorOf("phone"))}`}
           />
-          <ErrorText k="phone" />
+          {errorText("phone")}
         </div>
 
         <div>
@@ -320,7 +324,7 @@ function FormBody({
               <path d="M1 1l6 6 6-6" fill="none" stroke="currentColor" strokeWidth="1.5" />
             </svg>
           </div>
-          <ErrorText k="category" />
+          {errorText("category")}
         </div>
 
         <div>
@@ -338,7 +342,7 @@ function FormBody({
             {...describe("message")}
             className={`mt-2 min-h-24 resize-y py-3 ${control(!!errorOf("message"))}`}
           />
-          <ErrorText k="message" />
+          {errorText("message")}
         </div>
       </div>
 
@@ -355,7 +359,7 @@ function FormBody({
           />
           {f.consent}
         </label>
-        <ErrorText k="consent" />
+        {errorText("consent")}
       </div>
 
       <button
