@@ -4,8 +4,16 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ddsmPath, type Dict } from "@/content/ddsm";
-import { LangSwitch } from "./LangSwitch";
-import { Arrow, Shell } from "./ui";
+
+/*
+ * Header DDSM, mengikuti komp desain: logo "DDSM" emas polos dengan sans
+ * tebal (gaya yang sama persis dengan logo footer) dan menu memakai serif —
+ * DM Serif Text yang sudah dimuat untuk judul, jadi tidak ada font tambahan.
+ *
+ * Kontainernya sengaja sama dengan footer (max-w 880px), bukan <Shell>: di
+ * komp, logo header dan logo footer berdiri di garis kiri yang sama.
+ */
+const FRAME = "mx-auto w-full max-w-[880px] px-5 sm:px-8";
 
 export function Header({ dict }: { dict: Dict }) {
   const [open, setOpen] = useState(false);
@@ -20,17 +28,17 @@ export function Header({ dict }: { dict: Dict }) {
   const isActive = (href: string) => pathname === href;
 
   return (
-    <header className="sticky top-0 z-50 bg-ddsm-forest text-ddsm-cream">
-      <Shell>
-        <div className="flex h-16 items-center gap-6">
+    <header className="sticky top-0 z-50 bg-[#2a3a24] text-ddsm-cream">
+      <div className={FRAME}>
+        <div className="flex h-[70px] items-center">
           <Link
             href={ddsmPath(dict.locale)}
-            className="text-[17px] font-bold tracking-[0.1em] text-ddsm-gold"
+            className="text-[24px] font-extrabold leading-none tracking-[0.06em] text-[#d4af37]"
           >
-            DDS<span className="text-ddsm-cream">M</span>
+            DDSM
           </Link>
 
-          <nav aria-label={dict.common.menu} className="hidden items-center gap-7 lg:flex">
+          <nav aria-label={dict.common.menu} className="ml-[60px] hidden items-center gap-7 lg:flex">
             {dict.nav.map((item) => {
               const href = ddsmPath(dict.locale, item.slug);
               return (
@@ -38,8 +46,8 @@ export function Header({ dict }: { dict: Dict }) {
                   key={item.slug}
                   href={href}
                   aria-current={isActive(href) ? "page" : undefined}
-                  className={`text-[13px] font-medium transition-colors hover:text-ddsm-gold ${
-                    isActive(href) ? "text-ddsm-gold" : "text-ddsm-cream"
+                  className={`font-serif text-[15px] font-normal transition-colors hover:text-[#d4af37] ${
+                    isActive(href) ? "text-[#d4af37]" : "text-ddsm-cream"
                   }`}
                 >
                   {item.label}
@@ -49,16 +57,6 @@ export function Header({ dict }: { dict: Dict }) {
           </nav>
 
           <div className="ml-auto flex items-center gap-3">
-            <LangSwitch dict={dict} />
-
-            <a
-              href="#contact"
-              className="hidden items-center gap-2 rounded-md bg-ddsm-gold px-4 py-2.5 text-[13px] font-semibold text-ddsm-forest transition-colors hover:bg-[#ffd83c] sm:inline-flex"
-            >
-              {dict.common.invest}
-              <Arrow />
-            </a>
-
             <button
               type="button"
               onClick={() => setOpen((v) => !v)}
@@ -70,10 +68,10 @@ export function Header({ dict }: { dict: Dict }) {
             </button>
           </div>
         </div>
-      </Shell>
+      </div>
 
       <div id="ddsm-menu" hidden={!open} className="border-t border-white/10 lg:hidden">
-        <Shell>
+        <div className={FRAME}>
           <nav aria-label={dict.common.menu} className="flex flex-col py-2">
             {dict.nav.map((item) => {
               const href = ddsmPath(dict.locale, item.slug);
@@ -86,22 +84,16 @@ export function Header({ dict }: { dict: Dict }) {
                      pathname: setState di dalam effect dilarang React Compiler,
                      dan menutup di handler klik lebih langsung. */
                   onClick={() => setOpen(false)}
-                  className="border-b border-white/10 py-3.5 text-[15px] font-medium last:border-b-0"
+                  className={`border-b border-white/10 py-3.5 font-serif text-[17px] font-normal last:border-b-0 ${
+                    isActive(href) ? "text-[#d4af37]" : ""
+                  }`}
                 >
                   {item.label}
                 </Link>
               );
             })}
-            <a
-              href="#contact"
-              onClick={() => setOpen(false)}
-              className="mt-4 mb-4 inline-flex w-fit items-center gap-2 rounded-md bg-ddsm-gold px-5 py-3 text-[14px] font-semibold text-ddsm-forest"
-            >
-              {dict.common.invest}
-              <Arrow />
-            </a>
           </nav>
-        </Shell>
+        </div>
       </div>
     </header>
   );

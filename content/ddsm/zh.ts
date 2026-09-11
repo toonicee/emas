@@ -1,9 +1,10 @@
 import type { Dict } from "./types";
 
 /**
- * Mandarin (Hans/aksara sederhana). Angka Rupiah sengaja memakai pemisah koma
- * ("Rp 2.810.000") mengikuti konvensi baca Tionghoa, bukan titik ala Indonesia —
- * ini satu-satunya tempat format angka berbeda antarbahasa.
+ * Mandarin (Hans/aksara sederhana). Angka Rupiah tetap memakai pemisah titik
+ * ("Rp 2.810.000"), bukan koma ala konvensi Tionghoa: tabel harga `prices`
+ * (types.ts) dipakai bersama ketiga bahasa dan selalu berformat Indonesia, jadi
+ * prosa berkoma akan bentrok dengan angka di tabel pada halaman yang sama.
  *
  * Nama badan hukum, merek produsen (Antam, UBS, Galeri 24), alamat, dan alamat
  * surel tidak diterjemahkan: itu nama diri, dan menerjemahkannya justru bikin
@@ -23,10 +24,8 @@ export const zh: Dict = {
   common: {
     menu: "菜单",
     close: "关闭",
-    invest: "开始投资",
     explore: "金库安全",
     contactUs: "联系我们",
-    readMore: "了解更多",
     langSwitchLabel: "选择语言",
     skipToContent: "跳至主要内容",
   },
@@ -36,11 +35,10 @@ export const zh: Dict = {
     metaDescription:
       "通过同一个平台买入、储蓄、卖出并提取 99.99% 认证黄金。价格透明，仓储投保，随时可提取实物。",
     hero: {
-      eyebrow: "真实存在的黄金，而不只是看得见",
       title: "为纯金而建，为你而守",
-      lead: "值得信赖的金条与数字黄金保管，端到端全程保障。",
-      primary: "开始投资",
-      secondary: "金库安全",
+      lead: "金库中的实物金条与数字持仓，无缝相连",
+      primary: "立即投资",
+      secondary: "了解金库安全",
     },
     ticker: {
       date: "2026年9月10日 星期四",
@@ -51,7 +49,7 @@ export const zh: Dict = {
       sellDelta: "0.30%",
     },
     intro: {
-      eyebrow: "全额分配的实物黄金 · 即时数字化交易",
+      eyebrow: "100% 足额分配实物黄金 · 即时数字化交易",
       heading: "实物黄金与数字黄金，一处尽在掌握",
       sideHeading: "打造更稳固的财务基础，今天就开启你的黄金储蓄之旅。",
       body: "PT Datar Dana Sukses Makmur 正在改变印尼人获取与管理黄金的方式。作为数字化零售交易平台，我们把高纯度黄金的可靠性与现代技术的灵活性结合在一起。通过一个整合的平台，客户可以便捷、安全、透明地买入、储蓄、卖出并提取黄金。",
@@ -86,22 +84,21 @@ export const zh: Dict = {
       available: "有货",
     },
     contact: {
-      eyebrow: "联系我们",
       heading: "给我们留言",
       lead: "有疑问或遇到问题？请通过此表单告诉我们。如果是投诉，请留下电话与邮箱，方便我们直接跟进。",
       fields: {
-        name: "姓名*",
-        namePh: "请输入你的姓名",
-        email: "邮箱*",
-        emailPh: "name@email.com",
-        phone: "电话号码*",
-        phonePh: "请输入你的电话号码",
-        category: "类别*",
-        categoryPh: "请选择类别",
-        message: "留言内容",
+        name: "姓名",
+        namePh: "请填写你的姓名",
+        email: "邮箱",
+        emailPh: "请填写你的邮箱",
+        phone: "电话号码",
+        phonePh: "请填写你的电话号码",
+        category: "咨询类别",
+        categoryPh: "请选择咨询目的",
+        message: "留言",
         messagePh: "请输入你的留言",
         consent: "我同意隐私政策。",
-        submit: "发送留言",
+        submit: "发送",
       },
       categories: ["购买黄金", "黄金保管", "账户支持", "提取实物", "其他"],
     },
@@ -452,13 +449,12 @@ export const zh: Dict = {
   },
 
   footer: {
-    address: "雅加达 Kuningan City，Jl. Merdeka Raya，Plaza Merdeka 5 楼。",
-    hours: "周一至周五 09:00–17:00（西印尼时间）。",
+    address: "Plaza Mutiara Lt. 6 Jl. Lingkar Mega Kuningan Kav. E 1.2 No. 1 & 2, RT.5/RW.2, Kuningan, Kuningan Tim., Kecamatan Setiabudi, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12950",
     email: "hello@ddsm.co.id",
     phone: "客服热线 14045",
     disclaimer:
-      "PT Datar Dana Sukses Makmur 是一家从事数字黄金交易及相关服务的公司。本页信息仅供演示，不构成要约、推荐或投资建议。",
+      "PT Datar Dana Sukses Makmur 是一家从事数字黄金交易及相关服务的公司。关于公司已在 BAPPEBTI 注册、持牌并受其监管的声明，以及适用的牌照编号和通信与数字部登记信息，须在发布前经法务/合规部门确认。",
+    licence: "BAPPEBTI 牌照编号：[待确认]",
     rights: "© 2026 PT Datar Dana Sukses Makmur.",
-    legal: ["隐私政策", "条款与条件", "无障碍访问"],
   },
 };

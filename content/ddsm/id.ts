@@ -14,10 +14,8 @@ export const id: Dict = {
   common: {
     menu: "Menu",
     close: "Tutup",
-    invest: "Mulai Investasi",
     explore: "Keamanan Brankas",
     contactUs: "Hubungi Kami",
-    readMore: "Selengkapnya",
     langSwitchLabel: "Pilih bahasa",
     skipToContent: "Lompat ke konten utama",
   },
@@ -27,11 +25,10 @@ export const id: Dict = {
     metaDescription:
       "Beli, simpan, jual, dan cetak emas bersertifikat 99,99% lewat satu platform. Harga transparan, penyimpanan terasuransi, penarikan fisik kapan pun.",
     hero: {
-      eyebrow: "Emas yang nyata, bukan sekadar terlihat",
       title: "Dibangun untuk emas murni, diamankan untuk kamu",
-      lead: "Penyimpanan emas batangan dan emas digital tepercaya, terlindungi dari ujung ke ujung.",
-      primary: "Mulai Investasi",
-      secondary: "Keamanan Brankas",
+      lead: "Emas batangan di brankas dan kepemilikan digital, terhubung mulus",
+      primary: "Investasi Sekarang",
+      secondary: "Jelajahi Keamanan Brankas",
     },
     ticker: {
       date: "Kamis, 10 September 2026",
@@ -42,7 +39,7 @@ export const id: Dict = {
       sellDelta: "0,30%",
     },
     intro: {
-      eyebrow: "Emas fisik teralokasi penuh & akses digital seketika",
+      eyebrow: "100% Emas Fisik Teralokasi & Akses Digital Seketika",
       heading: "Emas fisik dan emas digital, mulus dalam satu genggaman",
       sideHeading: "Bangun fondasi keuangan yang lebih kuat. Mulai perjalanan menabung emas kamu hari ini.",
       body: "PT Datar Dana Sukses Makmur mengubah cara orang Indonesia mengakses dan mengelola emas. Sebagai platform perdagangan ritel digital, kami memadukan keandalan emas berkadar tinggi dengan keluwesan teknologi modern. Lewat satu platform terpadu, pelanggan bisa membeli, menabung, menjual, dan menarik emas secara nyaman, aman, dan transparan.",
@@ -77,22 +74,21 @@ export const id: Dict = {
       available: "Tersedia",
     },
     contact: {
-      eyebrow: "Hubungi kami",
       heading: "Kirim Pesan",
       lead: "Punya pertanyaan atau menemui kendala? Sampaikan lewat formulir ini. Kalau kamu menyampaikan keluhan, cantumkan nomor telepon dan email supaya kami bisa menindaklanjuti langsung.",
       fields: {
-        name: "Nama lengkap*",
-        namePh: "Masukkan nama lengkap kamu",
-        email: "Email*",
-        emailPh: "nama@email.com",
-        phone: "Nomor telepon*",
-        phonePh: "Masukkan nomor telepon kamu",
-        category: "Kategori*",
-        categoryPh: "Pilih kategori",
+        name: "Nama Lengkap",
+        namePh: "Isi nama lengkap kamu",
+        email: "Email",
+        emailPh: "Isi email kamu",
+        phone: "Nomor Telepon",
+        phonePh: "Isi nomor telepon kamu",
+        category: "Kategori Pertanyaan",
+        categoryPh: "Pilih keperluan",
         message: "Pesan",
         messagePh: "Tulis pesan kamu",
         consent: "Saya menyetujui kebijakan privasi.",
-        submit: "Kirim pesan",
+        submit: "Kirim",
       },
       categories: ["Pembelian emas", "Penyimpanan emas", "Bantuan akun", "Penarikan fisik", "Lainnya"],
     },
@@ -443,13 +439,12 @@ export const id: Dict = {
   },
 
   footer: {
-    address: "Plaza Merdeka Lt. 5, Jl. Merdeka Raya, Kuningan City, Jakarta.",
-    hours: "Senin–Jumat, 09.00–17.00 WIB.",
+    address: "Plaza Mutiara Lt. 6 Jl. Lingkar Mega Kuningan Kav. E 1.2 No. 1 & 2, RT.5/RW.2, Kuningan, Kuningan Tim., Kecamatan Setiabudi, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12950",
     email: "hello@ddsm.co.id",
     phone: "Voice Call 14045",
     disclaimer:
-      "PT Datar Dana Sukses Makmur adalah perusahaan yang bergerak di bidang perdagangan emas digital dan layanan terkait. Informasi pada halaman ini bersifat demonstrasi dan bukan merupakan penawaran, rekomendasi, atau saran investasi.",
+      "PT Datar Dana Sukses Makmur adalah perusahaan yang bergerak di bidang perdagangan emas digital dan layanan terkait. Pernyataan bahwa perusahaan terdaftar, berizin, dan diawasi oleh BAPPEBTI, beserta nomor izin yang berlaku dan rincian pendaftaran di Kementerian Komunikasi dan Digital, wajib dikonfirmasi oleh tim Legal/Kepatuhan sebelum dipublikasikan.",
+    licence: "No. Izin BAPPEBTI: [MENUNGGU KONFIRMASI]",
     rights: "© 2026 PT Datar Dana Sukses Makmur.",
-    legal: ["Privasi", "Syarat & Ketentuan", "Aksesibilitas"],
   },
 };

@@ -15,7 +15,7 @@ export function PageTemplate({ dict, page }: { dict: Dict; page: SubPage }) {
       <section className="bg-ddsm-forest py-16 text-ddsm-cream lg:py-24">
         <Shell>
           <Eyebrow tone="gold">{page.eyebrow}</Eyebrow>
-          <h1 className="mt-4 max-w-[18ch] font-serif text-[38px] font-semibold leading-[1.03] tracking-[-0.025em] sm:text-[52px] lg:text-[64px]">
+          <h1 className="mt-4 max-w-[18ch] font-serif text-[38px] font-normal leading-[1.03] tracking-[-0.025em] sm:text-[52px] lg:text-[64px]">
             {page.title}
           </h1>
           <p className="mt-6 max-w-xl text-[17px] leading-[1.65] text-[#d5e0d3]">{page.lead}</p>
@@ -25,7 +25,7 @@ export function PageTemplate({ dict, page }: { dict: Dict; page: SubPage }) {
       <section className="bg-ddsm-sand py-20 lg:py-24">
         <Shell>
           <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
-            <h2 className="font-serif text-[28px] font-semibold leading-[1.1] tracking-[-0.02em] text-ddsm-ink lg:text-[38px]">
+            <h2 className="font-serif text-[28px] font-normal leading-[1.1] tracking-[-0.02em] text-ddsm-ink lg:text-[38px]">
               {page.intro.heading}
             </h2>
             <div className="space-y-5">
@@ -56,7 +56,7 @@ export function PageTemplate({ dict, page }: { dict: Dict; page: SubPage }) {
           <ol className="mt-12 grid gap-px overflow-hidden rounded-lg bg-ddsm-rule-dk sm:grid-cols-2">
             {page.steps.items.map((item) => (
               <li key={item.title} className="bg-ddsm-green p-6 lg:p-8">
-                <h3 className="font-serif text-[20px] font-semibold leading-tight text-white lg:text-[22px]">
+                <h3 className="font-serif text-[20px] font-normal leading-tight text-white lg:text-[22px]">
                   {item.title}
                 </h3>
                 <p className="mt-3 text-[15px] leading-[1.7] text-[#cfdccd]">{item.desc}</p>
@@ -98,7 +98,7 @@ export function PageTemplate({ dict, page }: { dict: Dict; page: SubPage }) {
         <Shell>
           <div className="flex flex-col items-start gap-8 rounded-xl bg-ddsm-green px-8 py-12 text-ddsm-cream lg:flex-row lg:items-center lg:justify-between lg:px-14 lg:py-14">
             <div className="max-w-xl">
-              <h2 className="font-serif text-[28px] font-semibold leading-[1.1] tracking-[-0.02em] text-white lg:text-[36px]">
+              <h2 className="font-serif text-[28px] font-normal leading-[1.1] tracking-[-0.02em] text-white lg:text-[36px]">
                 {dict.cta.heading}
               </h2>
               <p className="mt-4 text-[16px] leading-[1.7] text-[#d5e0d3]">{dict.cta.body}</p>

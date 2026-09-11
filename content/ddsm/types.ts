@@ -32,7 +32,7 @@ export type LocaleMeta = {
  */
 export const LOCALE_META: Record<Locale, LocaleMeta> = {
   id: { htmlLang: "id-ID", name: "Bahasa Indonesia", code: "ID", flag: "🇮🇩" },
-  en: { htmlLang: "en", name: "English", code: "EN", flag: "🇬🇧" },
+  en: { htmlLang: "en", name: "English", code: "EN", flag: "🇺🇸" },
   zh: { htmlLang: "zh-Hans", name: "简体中文", code: "中文", flag: "🇨🇳" },
 };
 
@@ -64,10 +64,8 @@ export type Dict = {
   common: {
     menu: string;
     close: string;
-    invest: string;
     explore: string;
     contactUs: string;
-    readMore: string;
     langSwitchLabel: string;
     skipToContent: string;
   };
@@ -76,7 +74,6 @@ export type Dict = {
     metaTitle: string;
     metaDescription: string;
     hero: {
-      eyebrow: string;
       title: string;
       lead: string;
       primary: string;
@@ -85,10 +82,12 @@ export type Dict = {
     ticker: { date: string; label: string; buy: string; sell: string; buyDelta: string; sellDelta: string };
     intro: { eyebrow: string; heading: string; sideHeading: string; body: string };
     /**
-     * Lima kartu bento di beranda. Sengaja objek berkunci, bukan array: tiap
-     * kartu punya perlakuan visual sendiri (warna, gambar, lebar kolom), jadi
-     * urutan array tidak boleh jadi satu-satunya yang mengikat copy ke
-     * tampilannya — menyisipkan satu item bakal menggeser semua gambar.
+     * Lima kartu bento di beranda. Kartunya berupa gambar utuh dengan teks
+     * Inggris di dalamnya, jadi copy di sini dipakai sebagai ALT tiap gambar —
+     * satu-satunya jalan isi kartu sampai ke mesin pencari dan pembaca layar
+     * dalam bahasa halaman. Objek berkunci, bukan array: tiap kunci terikat ke
+     * satu berkas gambar tertentu, dan menyisipkan item ke array bakal membuat
+     * alt melenceng dari gambarnya.
      */
     bento: {
       certified: Feature;
@@ -99,9 +98,11 @@ export type Dict = {
     };
     market: { eyebrow: string; heading: string; lead: string; cols: [string, string, string, string]; available: string };
     contact: {
-      eyebrow: string;
       heading: string;
       lead: string;
+      /** Label TANPA tanda bintang — ContactSection menambahkan "*" merah
+          sendiri pada field wajib, jadi bintangnya tidak ikut dibaca pembaca
+          layar dua kali (atribut `required` sudah menyampaikannya). */
       fields: {
         name: string; namePh: string;
         email: string; emailPh: string;
@@ -120,12 +121,13 @@ export type Dict = {
 
   footer: {
     address: string;
-    hours: string;
     email: string;
     phone: string;
     disclaimer: string;
+    /** Baris nomor izin BAPPEBTI. Sengaja terpisah dari disclaimer: begitu
+        nomornya terbit, cukup field ini yang diganti di ketiga bahasa. */
+    licence: string;
     rights: string;
-    legal: string[];
   };
 };
 

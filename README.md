@@ -88,7 +88,7 @@ components/
 content/      site.ts, market.ts, sections.ts — SELURUH copy ada di sini
 lib/          seo.ts, jsonld.ts, chart.ts, format.ts
 design/       kanvas Claude Design (sumber desain, tidak ikut ter-build)
-scripts/      pengambil aset + sumber mockup aplikasi (tidak ikut ter-build)
+scripts/      pengambil aset, perender aset DDSM (bento + hero), sumber mockup aplikasi (tidak ikut ter-build)
 public/images/ foto placeholder — lihat IMAGE-CREDITS.md
 ```
 
@@ -147,13 +147,15 @@ build-nya. Kelima sub-halaman dirender oleh satu
 [`PageTemplate.tsx`](components/ddsm/PageTemplate.tsx), jadi konsistensinya
 dijaga satu berkas, bukan oleh kedisiplinan menyalin markup lima kali.
 
-Pemilih bahasa ([`LangSwitch.tsx`](components/ddsm/LangSwitch.tsx)) adalah
-dropdown di atas `<details>`/`<summary>`, bukan tombol + state React. Buka-tutup
+Pemilih bahasa ([`LangSwitch.tsx`](components/ddsm/LangSwitch.tsx)) tinggal di
+**footer**, bukan header, dan berupa dropdown di atas `<details>`/`<summary>`, bukan tombol + state React. Buka-tutup
 ditangani browser, jadi dropdown tetap bisa dibuka walau JavaScript gagal dimuat,
 dan isinya tetap tiga `<a>` sungguhan — bisa di-crawl dan bisa dibuka di tab
 baru. JavaScript di situ cuma pemanis: menutup panel setelah memilih, saat
 Escape, atau saat klik di luar. Path bahasa lain dihitung dari pathname berjalan,
-jadi berpindah bahasa mempertahankan halaman yang sama.
+jadi berpindah bahasa mempertahankan halaman yang sama. Panelnya membuka ke
+**atas**: footer adalah elemen terakhir halaman, jadi panel yang membuka ke bawah
+akan menjulur melewati dasar halaman.
 
 Identitas ketiga bahasa (nama asli, kode, bendera, `htmlLang`) ada di
 `LOCALE_META` pada [`content/ddsm/types.ts`](content/ddsm/types.ts) — tabel
@@ -171,58 +173,86 @@ TypeScript. Tag `hreflang` (id-ID / en / zh-Hans / x-default) dirakit dari
 [`app/sitemap.ts`](app/sitemap.ts), supaya bahasa baru tidak bisa diam-diam
 terlewat dari SEO.
 
-**Font Mandarin.** Fraunces dan Inter tidak punya glif Han sama sekali. Subtree
-`zh` diberi kelas `.ddsm-zh` yang menambahkan rantai fallback CJK sistem
+**Font judul: DM Serif Text.** Dimuat lewat `next/font/google` hanya di layout
+`/ddsm`, jadi halaman SUVARNA tidak ikut menanggungnya. Font ini **bukan variable
+font dan hanya punya satu bobot, 400** — karena itu `weight: "400"` wajib diisi,
+seluruh heading serif DDSM memakai `font-normal`, dan pembungkus DDSM memasang
+`font-synthesis-weight: none`. Tanpa dua hal terakhir, `font-semibold` membuat
+browser menebalkan glif secara sintetis dan goresannya jadi belepotan — paling
+kentara di serif berkontras tinggi seperti ini. Jangan tambahkan `font-bold`
+ke heading serif; tidak akan berefek.
+
+**Font teks: Manrope.** Seluruh teks sans di `/ddsm` (subjudul, tombol, kartu
+harga, form, footer, logo) memakai Manrope, mengikuti komp desain — dipilih
+lewat perbandingan berdampingan frasa-frasa komp dengan Manrope, Plus Jakarta
+Sans, dan Inter. Dimuat hanya di layout `/ddsm`; SUVARNA tetap Inter. Kelas
+`.ddsm` di pembungkus menyetel ulang `font-family`, karena font-family yang
+sudah dihitung di `<body>` diwariskan apa adanya dan mengganti variabel saja
+tidak cukup.
+
+**Font Mandarin.** DM Serif Text dan Manrope tidak punya glif Han sama sekali.
+Subtree `zh` diberi kelas `.ddsm-zh` yang menambahkan rantai fallback CJK sistem
 (PingFang SC, Noto Sans/Serif CJK, Microsoft YaHei). Webfont CJK sengaja **tidak**
 dimuat: berkasnya 5–10 MB karena memuat puluhan ribu glif, dan `next/font` tidak
 bisa men-subset CJK seperti ia men-subset Latin. Latin tetap dirender
-Fraunces/Inter karena keduanya lebih awal di rantai.
+DM Serif Text/Manrope karena keduanya lebih awal di rantai. Heading serif di `zh`
+disetel ke bobot 600: aksara Han-nya dirender font CJK sistem yang punya bobot
+tebal sungguhan, sementara huruf Latin di heading yang sama tetap DM Serif Text
+400 asli karena sintesis bobot dimatikan.
 
-**Bento beranda.** Seksi di bawah intro adalah lima kartu bento: dua sama lebar
-di baris atas, tiga dengan lebar menaik (1,15 / 1 / 1,45) di baris bawah.
-Copy-nya di `home.bento` — objek berkunci (`certified`, `rates`, `compliant`,
-`legacy`, `cta`), bukan array, karena tiap kartu punya perlakuan visual sendiri;
-dengan array, menyisipkan satu item akan menggeser semua gambar.
+**Hero.** Lingkaran emas di hero berasal dari `public/images/ellipse.svg` —
+26 MB, karena isinya satu foto 4096×2731 ber-base64. librsvg (`sharp`) menolak
+mem-parse XML sebesar itu, jadi
+[`scripts/render-ddsm-assets.cjs`](scripts/render-ddsm-assets.cjs) merakit
+ulang lingkarannya langsung dari PNG tertanam, mengikuti struktur SVG-nya
+(matriks `<pattern>`, lapisan `#FFC300` soft-light, potongan lingkaran, balik
+vertikal), menjadi `public/images/ddsm/hero-ellipse.webp` (±179 kB). Hasilnya
+sudah dibandingkan berdampingan dengan SVG asli yang dirender Chrome dan
+identik. Gambar ini memakai `preload` — pengganti `priority` di Next 16 —
+karena merupakan kandidat LCP. Kartu harga duduk tepat di garis batas hero,
+dan seksi intro di bawahnya berlatar `#e2ded8` supaya garis itu tampak seperti
+di komp.
 
-### Aset bento: kenapa hanya objeknya yang dipakai
+**Bento beranda.** Seksi di bawah intro berisi lima kartu bento: dua sama lebar
+di baris atas, tiga di baris bawah dengan lebar 1 / 1 / 1,35. Rasio itu sengaja
+sama dengan rasio lebar asetnya (345 / 345 / 466), jadi ketiga kartu otomatis
+sama tinggi tanpa perlu dipotong.
 
-Komp desainnya dikirim sebagai `public/images/asset1.svg` … `asset6.png` —
-kartu-kartu yang **sudah jadi**, lengkap dengan teks Inggris yang di-outline
-menjadi vektor/raster. Dipasang apa adanya, tiga hal rusak sekaligus: versi
-Indonesia dan Mandarin ikut menampilkan teks Inggris, teksnya hilang dari mesin
-pencari dan pembaca layar, dan mockup ponsel di `asset2.svg` ber-branding
-SUVARNA — persis kebocoran lintas-merek yang sudah ditutup di tempat lain.
+### Aset bento
 
-Yang dipakai karena itu hanya **objek 3D-nya**. Di dalam SVG itu objeknya
-ternyata tersimpan sebagai sprite sheet PNG ber-alpha, terpisah dari lapisan
-teks; masing-masing dipotong, di-trim menurut alpha, dan disimpan ulang di
-`public/images/ddsm/` (pouch, coin-plain, coin-hole, safe, bars). Teks kartu
-tetap HTML hidup, jadi tiga bahasa tetap jalan.
+Setiap kartu adalah **gambar utuh** dari komp desain — `public/images/asset1.svg`
+… `asset5.svg` — lengkap dengan teks Inggris yang sudah di-outline menjadi path
+vektor. Konsekuensinya, dan ini keputusan yang disengaja:
 
-Efek sampingnya besar: SVG aslinya berjumlah ±13 MB (satu berkas 8,8 MB), dan
-`next/image` tidak bisa mengoptimalkan SVG — ia disajikan mentah. Objek hasil
-ekstraksi total **±97 kB** setelah dikonversi ke WebP oleh `next/image`.
+- **Teks kartu berbahasa Inggris di ketiga versi bahasa.** Sebagai gantinya,
+  alt tiap gambar diisi judul + deskripsi kartu dari `home.bento` di kamus
+  masing-masing, jadi mesin pencari dan pembaca layar tetap mendapat isinya
+  dalam bahasa halaman. Karena itu `home.bento` tetap wajib diisi di ketiga
+  kamus walau teksnya tidak tampil.
+- **Kartu kedua (`asset2.svg`) memuat mockup ponsel ber-branding SUVARNA** —
+  merek dan badan hukum lain — di halaman DDSM.
+- **Angka harga di kartu 2 dan 3** (Rp 2.960.000 / 2.910.000) berbeda dengan
+  kartu harga di atas halaman (Rp 2.810.000 / 2.623.000). Angkanya menyatu di
+  gambar, jadi tidak bisa mengikuti data halaman.
+- **Di layar ponsel, teks kartu baris atas mengecil** (kartunya lebar-pendek,
+  591×285): deskripsinya sekitar 8px.
 
-> Berkas `asset1.svg`…`asset6.png` sekarang tidak dirujuk kode mana pun. Selama
-> masih berada di `public/`, Next tetap menyajikannya dan ±13 MB itu ikut
-> ter-deploy. Pindahkan ke `design/` (folder itu memang tidak ikut ter-build)
-> kalau ingin disimpan sebagai rujukan.
+SVG-nya tidak disajikan langsung. Kelima berkas itu pembungkus PNG base64
+dengan total ±7,8 MB, dan `next/image` tidak mengoptimalkan SVG — setiap
+pengunjung beranda akan mengunduhnya mentah.
+[`scripts/render-ddsm-assets.cjs`](scripts/render-ddsm-assets.cjs) merendernya
+ke WebP 2× di `public/images/ddsm/bento-{1..5}.webp` (±233 kB total), lalu
+`next/image` mengecilkannya lagi per lebar layar: ±117 kB tersaji untuk kelima
+kartu di lebar 1080px. SVG tetap menjadi sumbernya — **jalankan ulang skrip itu
+setiap kali salah satu SVG diganti**, kalau tidak halaman tetap menampilkan
+versi lama:
 
-Kartu ponsel dan chip harga tetap dibangun dari CSS, karena keduanya UI
-ber-teks — bukan objek yang bisa dipisahkan dari copy-nya. Angkanya sengaja sama
-dengan kartu harga di atasnya: dua "harga hari ini" yang berbeda dalam satu
-halaman terbaca sebagai bug, bukan sebagai hiasan.
+```bash
+node scripts/render-ddsm-assets.cjs
+```
 
-Satu penyimpangan disengaja dari komp: kartu "Legacy Asset Protection" memakai
-teks cokelat tua, bukan putih. Putih di atas amber `#d3933c` hanya **2,6:1** —
-di bawah ambang baca bahkan untuk teks besar; warna latarnya tetap sama persis.
-
-**Font Mandarin.** Fraunces dan Inter tidak punya glif Han sama sekali. Subtree
-`zh` diberi kelas `.ddsm-zh` yang menambahkan rantai fallback CJK sistem
-(PingFang SC, Noto Sans/Serif CJK, Microsoft YaHei). Webfont CJK sengaja **tidak**
-dimuat: berkasnya 5–10 MB karena memuat puluhan ribu glif, dan `next/font` tidak
-bisa men-subset CJK seperti ia men-subset Latin. Latin tetap dirender
-Fraunces/Inter karena keduanya lebih awal di rantai.
+Kualitas penyajian memakai default Next (75). Teks di dalam kartu sudah dicek
+tetap tajam pada kualitas itu, jadi `images.qualities` tidak perlu ditambah.
 
 ### Dua jebakan lintas-merek yang sudah ditutup
 

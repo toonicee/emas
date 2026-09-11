@@ -69,18 +69,34 @@
   --color-ddsm-rule-dk: #33473a;
   --color-ddsm-dim: #c7ccc4;
 
-  /* Fraunces dimuat hanya di layout /ddsm. Fallback di dalam var() penting:
+  /* DM Serif Text dimuat hanya di layout /ddsm. Fallback di dalam var() penting:
      di luar subtree DDSM variabelnya tidak ada, dan tanpa fallback seluruh
      deklarasi font-family jadi invalid. */
-  --font-serif: var(--font-fraunces, ui-serif), Georgia, "Times New Roman", serif;
+  --font-serif: var(--font-dm-serif, ui-serif), Georgia, "Times New Roman", serif;
 
   --container-shell: 1440px;
 }
 
 /* -----------------------------------------------------------------------------
+   Font teks DDSM: Manrope (dimuat di layout /ddsm, variabel --font-manrope).
+
+   Body situs memakai Inter, dan font-family yang sudah dihitung di <body>
+   diwariskan apa adanya ke seluruh turunannya — mengganti variabel saja tidak
+   cukup, jadi font-family di pembungkus DDSM ikut disetel ulang. --font-sans
+   didefinisikan ulang supaya utilitas `font-sans` di dalam subtree juga
+   menunjuk ke Manrope. .ddsm-zh di bawah menimpa --font-sans lagi dengan
+   rantai CJK; karena letaknya setelah aturan ini, font-family di sini ikut
+   memakai rantai itu untuk halaman Mandarin.
+   ----------------------------------------------------------------------------- */
+.ddsm {
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-sans);
+}
+
+/* -----------------------------------------------------------------------------
    Mandarin — rantai fallback CJK.
 
-   Fraunces dan Inter sama sekali tidak punya glif Han, jadi tanpa aturan ini
+   DM Serif Text dan Manrope sama sekali tidak punya glif Han, jadi tanpa aturan ini
    aksara Tionghoa jatuh ke generic `serif`/`sans-serif` bawaan sistem — di
    Windows itu SimSun, yang kelihatan usang dan tidak sepadan dengan halaman
    lainnya.
@@ -91,20 +107,30 @@
    performa halaman demi satu bahasa. Font CJK sistem sudah terpasang di semua
    platform target dan berkualitas baik, jadi itu yang dipakai.
 
-   Latin tetap dirender Fraunces/Inter: keduanya berada lebih awal di rantai,
+   Latin tetap dirender DM Serif Text/Manrope: keduanya berada lebih awal di rantai,
    dan browser hanya turun ke keluarga CJK untuk aksara yang tidak ada glifnya.
    ----------------------------------------------------------------------------- */
 .ddsm-zh {
   --font-serif:
-    var(--font-fraunces, ui-serif), "Noto Serif CJK SC", "Source Han Serif SC", "Songti SC",
+    var(--font-dm-serif, ui-serif), "Noto Serif CJK SC", "Source Han Serif SC", "Songti SC",
     "STSong", SimSun, Georgia, serif;
   --font-sans:
-    var(--font-inter), "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC",
+    var(--font-manrope), "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC",
     "Source Han Sans SC", "Microsoft YaHei", ui-sans-serif, system-ui, sans-serif;
 }
 
 /* Baris Han lebih padat daripada Latin pada ukuran yang sama; sedikit tambahan
    leading menjaga teks tetap lega dibaca. */
+/* Heading serif DDSM kini `font-normal` karena DM Serif Text hanya punya bobot
+   400. Untuk Mandarin itu terlalu tipis: aksara Han di heading dirender font
+   serif CJK sistem (Songti SC dsb.) yang punya bobot tebal sungguhan, dan
+   sebelumnya tampil semibold. Bobot 600 di sini mempertahankannya — sementara
+   huruf Latin di heading yang sama tetap DM Serif Text 400 asli, karena
+   font-synthesis sudah dimatikan di pembungkus DDSM. */
+.ddsm-zh .font-serif {
+  font-weight: 600;
+}
+
 .ddsm-zh p,
 .ddsm-zh li {
   line-height: 1.85;

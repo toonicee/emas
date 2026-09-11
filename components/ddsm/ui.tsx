@@ -83,7 +83,7 @@ export function SectionHeading({
         </p>
       ) : null}
       <h2
-        className={`mt-3 font-serif text-[30px] font-semibold leading-[1.06] tracking-[-0.02em] sm:text-[38px] lg:text-[46px] ${
+        className={`mt-3 font-serif text-[30px] font-normal leading-[1.06] tracking-[-0.02em] sm:text-[38px] lg:text-[46px] ${
           isLight ? "text-white" : "text-ddsm-ink"
         }`}
       >
@@ -117,7 +117,7 @@ export function FeatureCard({
         </span>
       ) : null}
       <h3
-        className={`mt-3 font-serif text-[21px] font-semibold leading-[1.2] lg:text-[23px] ${
+        className={`mt-3 font-serif text-[21px] font-normal leading-[1.2] lg:text-[23px] ${
           isDark ? "text-white" : "text-ddsm-ink"
         }`}
       >

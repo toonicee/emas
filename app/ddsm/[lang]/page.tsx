@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { ContactSection } from "@/components/ddsm/ContactSection";
-import { Btn, Eyebrow, SectionHeading, Shell } from "@/components/ddsm/ui";
-import { getDict, isLocale, prices } from "@/content/ddsm";
+import { SectionHeading, Shell } from "@/components/ddsm/ui";
+import { getDict, isLocale, prices, type Feature } from "@/content/ddsm";
 import { ddsmMetadata } from "@/lib/ddsm-seo";
 
 export async function generateMetadata({
@@ -21,7 +21,82 @@ export async function generateMetadata({
   });
 }
 
-export default async function DdsmHome({ params }: { params: Promise<{ lang: string }> }) {
+/** Satu kartu bento: gambar kartu utuh, alt berisi teks kartu dalam bahasa halaman. */
+function BentoCard({
+  src,
+  width,
+  height,
+  sizes,
+  item,
+}: {
+  src: string;
+  width: number;
+  height: number;
+  sizes: string;
+  item: Feature;
+}) {
+  return (
+    <Image
+      src={src}
+      alt={`${item.title} — ${item.desc}`}
+      width={width}
+      height={height}
+      sizes={sizes}
+      className="h-auto w-full"
+    />
+  );
+}
+
+/** Satu kolom harga di kartu hero: label, harga per gram, perubahan harian. */
+function PriceCell({
+  label,
+  value,
+  delta,
+  up = false,
+}: {
+  label: string;
+  value: string;
+  delta: string;
+  up?: boolean;
+}) {
+  return (
+    <div>
+      <p className="text-[15px] text-[#111]">{label}</p>
+      {/* nowrap: di ponsel kolomnya ±150px, dan tanpa ini "/ gr" turun ke baris
+          sendiri — harga per gram terbaca terpotong. */}
+      <p className="mt-0.5 whitespace-nowrap text-[16px] font-bold leading-tight text-[#111] sm:text-[20px]">
+        {value}
+        <span className="text-[13px] font-semibold sm:text-[16px]">/ gr</span>
+      </p>
+      <p
+        className={`mt-1 flex items-center gap-1.5 text-[12px] font-semibold ${
+          up ? "text-[#2a7f3a]" : "text-[#d23b3b]"
+        }`}
+      >
+        <svg aria-hidden viewBox="0 0 12 12" className={`h-3 w-3 ${up ? "" : "rotate-180"}`}>
+          <path
+            d="M6 10.5V1.5M2 5.5l4-4 4 4"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.6"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+        {/* Arah naik/turun tidak boleh hanya disampaikan lewat warna dan ikon
+            tersembunyi; panah teks ini dibacakan pembaca layar dalam bahasa
+            penggunanya sendiri. */}
+        <span className="sr-only">{up ? "↑" : "↓"}</span>({delta})
+      </p>
+    </div>
+  );
+}
+
+export default async function DdsmHome({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const dict = getDict(lang);
@@ -31,77 +106,80 @@ export default async function DdsmHome({ params }: { params: Promise<{ lang: str
   return (
     <>
       {/*
-        HERO
+        HERO — mengikuti komp: latar terang, lingkaran emas di tengah yang
+        terpotong di tepi atas dan bawah hero, judul serif, satu baris lead,
+        dua tombol, lalu kartu harga yang duduk tepat di garis batas hero dengan
+        seksi berikutnya.
 
-        Versi sebelumnya memakai kotak melayang ber-`rounded-b-[46%]`, yang
-        menghasilkan bentuk seperti balon: bidang oranye raksasa dengan potongan
-        elips curam dan ruang kosong menganga di dalamnya.
+        Lingkarannya adalah hero-ellipse.webp (±179 kB) hasil
+        scripts/render-ddsm-assets.cjs dari ellipse.svg — SVG-nya sendiri
+        26 MB dan tidak disajikan langsung. `preload` karena gambar ini elemen
+        terbesar di atas lipatan, jadi kandidat LCP; di Next 16 `priority`
+        sudah deprecated dan diganti `preload`.
 
-        Sekarang: pita full-bleed dengan lengkung bawah yang jauh lebih landai
-        (50% × 14%), padding terukur, dan skala tipografi yang tersambung —
-        eyebrow 11 → judul 44–76 → lead 17 → tombol 14. Karakternya tetap,
-        keseimbangannya kembali.
+        Batas lebar judul ditulis dalam `em` (9.6em ≈ 610px pada 64px) supaya
+        pemenggalan "…gold, / secured for you" sama di semua breakpoint.
+        `break-keep` (word-break: keep-all) membuat aksara Han hanya boleh
+        dipatahkan di tanda baca — tanpa itu judul Mandarin terpenggal di
+        tengah kata ("为纯金而 / 建…"). Teks Latin tidak terpengaruh.
+        <h1> tidak dianimasikan — lihat prinsip SEO di README.
       */}
-      <section
-        className="relative isolate overflow-hidden bg-ddsm-amber"
-        style={{ borderBottomLeftRadius: "50% 14%", borderBottomRightRadius: "50% 14%" }}
-      >
-        <div
-          aria-hidden
-          className="absolute inset-0 opacity-45 [background-image:linear-gradient(90deg,rgba(91,43,0,.2)_1px,transparent_1px),linear-gradient(rgba(255,221,119,.4)_1px,transparent_1px)] [background-size:48px_54px]"
-        />
-        <div
-          aria-hidden
-          className="absolute inset-0 bg-[radial-gradient(circle_at_50%_18%,rgba(255,236,166,.85),transparent_48%),linear-gradient(160deg,transparent_45%,rgba(120,52,0,.28))]"
+      <section className="relative isolate overflow-hidden bg-ddsm-sand">
+        <Image
+          src="/images/ddsm/hero-ellipse.webp"
+          alt=""
+          width={1880}
+          height={1760}
+          preload
+          sizes="(max-width: 767px) 160vw, 720px"
+          className="pointer-events-none absolute left-1/2 top-[-80px] -z-10 w-[160vw] max-w-none -translate-x-1/2 md:top-[-120px] md:w-[720px]"
         />
 
-        <Shell className="relative">
-          <div className="mx-auto max-w-4xl px-1 pt-14 pb-24 text-center sm:pt-16 lg:pt-20 lg:pb-28">
-            <Eyebrow tone="brown">{dict.home.hero.eyebrow}</Eyebrow>
+        <div className="mx-auto max-w-3xl px-5 pb-[118px] pt-10 text-center sm:px-8 md:pt-12">
+          <h1 className="mx-auto max-w-[9.6em] text-balance break-keep font-serif text-[40px] font-normal leading-[1.1] tracking-[-0.01em] text-[#111] sm:text-[54px] lg:text-[64px]">
+            {dict.home.hero.title}
+          </h1>
 
-            <h1 className="mt-5 text-balance font-serif text-[36px] font-semibold leading-[1.06] tracking-[-0.03em] text-[#1d1709] sm:text-[50px] lg:text-[62px]">
-              {dict.home.hero.title}
-            </h1>
+          <p className="mx-auto mt-2 max-w-md text-[15px] font-medium leading-[1.5] text-[#1c1c1c]">
+            {dict.home.hero.lead}
+          </p>
 
-            <p className="mx-auto mt-6 max-w-lg text-[17px] leading-[1.6] text-[#4a2900]">
-              {dict.home.hero.lead}
-            </p>
-
-            <div className="mt-9 flex flex-wrap justify-center gap-3">
-              <Btn href="#contact" tone="solid">{dict.home.hero.primary}</Btn>
-              <Btn href={`/ddsm/${lang}/company`} tone="cream">{dict.home.hero.secondary}</Btn>
-            </div>
+          <div className="mt-8 flex flex-wrap justify-center gap-4">
+            <a
+              href={`/ddsm/${lang}/company`}
+              className="inline-flex h-[42px] items-center rounded-[6px] border-[1.5px] border-[#2a3a24] bg-[#efebe5] px-[17px] text-[13px] font-bold text-[#1c1c1c] transition-colors hover:bg-white"
+            >
+              {dict.home.hero.secondary}
+            </a>
+            <a
+              href="#contact"
+              className="inline-flex h-[42px] items-center rounded-[6px] bg-[#2a3a24] px-[17px] text-[13px] font-bold text-white transition-colors hover:bg-[#34472d]"
+            >
+              {dict.home.hero.primary}
+            </a>
           </div>
-        </Shell>
+        </div>
       </section>
 
-      {/* Kartu harga menumpang di atas lengkung hero. */}
-      <Shell>
-        <div className="relative z-10 -mt-16 grid gap-5 rounded-xl bg-white px-6 py-6 shadow-[0_16px_40px_rgba(42,32,17,0.14)] sm:grid-cols-[1.3fr_1fr_1fr] sm:items-center sm:gap-8 sm:px-8">
-          <div className="border-b border-ddsm-rule pb-4 sm:border-b-0 sm:border-r sm:pb-0 sm:pr-6">
-            <p className="text-[12px] text-ddsm-muted">{t.date}</p>
-            <p className="mt-1 font-serif text-[22px] font-semibold leading-tight text-ddsm-ink">
+      {/* Kartu harga duduk di garis batas hero. Pembungkusnya transparan di
+          48px teratas — tepat sebesar tumpangan -mt-12, jadi hero terlihat di
+          baliknya — dan berwarna seksi intro di bawahnya. Batas dua latar
+          karena itu selalu jatuh di tepi bawah hero, berapa pun tinggi kartu
+          (di ponsel kartunya bertumpuk dan jauh lebih tinggi). */}
+      <div className="relative z-10 -mt-12 bg-[linear-gradient(to_bottom,transparent_48px,#e2ded8_48px)] px-5 sm:px-8">
+        <div className="mx-auto grid max-w-[746px] grid-cols-2 items-center gap-x-6 gap-y-4 rounded-[10px] bg-white px-6 py-5 shadow-[0_8px_24px_rgba(40,30,20,0.06)] sm:grid-cols-[1.45fr_1fr_0.9fr] sm:px-[30px]">
+          <div className="col-span-2 sm:col-span-1">
+            <p className="text-[14px] text-[#222]">{t.date}</p>
+            <p className="mt-0.5 font-serif text-[28px] font-normal leading-[1.15] text-[#111] sm:text-[30px]">
               {t.label}
             </p>
           </div>
-          <div>
-            <p className="text-[12px] font-medium text-ddsm-muted">{t.buy}</p>
-            <p className="mt-1 text-[20px] font-semibold text-ddsm-ink">
-              Rp 2.810.000<span className="text-[13px] font-normal text-ddsm-muted"> / gr</span>
-            </p>
-            <p className="mt-0.5 text-[13px] font-medium text-[#2f7d43]">↑ {t.buyDelta}</p>
-          </div>
-          <div>
-            <p className="text-[12px] font-medium text-ddsm-muted">{t.sell}</p>
-            <p className="mt-1 text-[20px] font-semibold text-ddsm-ink">
-              Rp 2.623.000<span className="text-[13px] font-normal text-ddsm-muted"> / gr</span>
-            </p>
-            <p className="mt-0.5 text-[13px] font-medium text-[#b23f3b]">↓ {t.sellDelta}</p>
-          </div>
+          <PriceCell label={t.buy} value="Rp 2.810.000" delta={t.buyDelta} up />
+          <PriceCell label={t.sell} value="Rp 2.623.000" delta={t.sellDelta} />
         </div>
-      </Shell>
+      </div>
 
-      <section className="py-20 lg:py-24">
+      <section className="bg-[#e2ded8] pb-20 pt-16 lg:pb-24 lg:pt-20">
         <Shell>
           <SectionHeading
             align="center"
@@ -110,206 +188,37 @@ export default async function DdsmHome({ params }: { params: Promise<{ lang: str
           />
 
           <div className="mt-14 grid gap-10 lg:grid-cols-2 lg:gap-16">
-            <h3 className="max-w-md font-serif text-[26px] font-semibold leading-[1.15] tracking-[-0.02em] text-ddsm-ink lg:text-[34px]">
+            <h3 className="max-w-md font-serif text-[26px] font-normal leading-[1.15] tracking-[-0.02em] text-ddsm-ink lg:text-[34px]">
               {dict.home.intro.sideHeading}
             </h3>
-            <p className="text-[16px] leading-[1.8] text-ddsm-body">{dict.home.intro.body}</p>
+            <p className="text-[16px] leading-[1.8] text-ddsm-body">
+              {dict.home.intro.body}
+            </p>
           </div>
 
           {/*
-            Bento lima kartu, mengikuti komp desain di `public/images/asset*`.
+            Bento lima kartu. Gambarnya adalah kartu utuh dari komp desain
+            (public/images/asset1–5.svg), dirender ke WebP oleh
+            scripts/render-ddsm-assets.cjs — alasannya ada di skrip itu.
 
-            Aset kiriman itu adalah kartu jadi dengan teks Inggris yang sudah
-            di-outline menjadi vektor/raster. Dipasang apa adanya, versi
-            Indonesia dan Mandarin ikut menampilkan teks Inggris, dan teksnya
-            lenyap dari mesin pencari maupun pembaca layar. Karena itu yang
-            dipakai di sini hanya OBJEK 3D-nya — hasil ekstraksi sprite sheet
-            di dalam SVG, tersimpan di `public/images/ddsm/`. Teks tetap HTML
-            hidup, jadi tiga bahasa tetap jalan.
+            Teks kartu SUDAH MENYATU di dalam gambar dan berbahasa Inggris di
+            ketiga versi bahasa. Supaya mesin pencari dan pembaca layar tetap
+            mendapat isinya dalam bahasa halaman, alt tiap gambar diisi judul +
+            deskripsi kartu dari kamus (`home.bento`).
 
-            Kartu ponsel dan chip harga tetap dibangun dari CSS: mockup ponsel
-            pada aset itu ber-branding SUVARNA, dan memasangnya di halaman DDSM
-            mengulang persis kebocoran lintas-merek yang sudah ditutup.
-
-            Warna latar diambil piksel-per-piksel dari aset aslinya.
+            Lebar kolom baris bawah (1 / 1 / 1,35) sengaja sama dengan rasio
+            lebar asetnya (345 / 345 / 466), jadi ketiga kartu otomatis sama
+            tinggi tanpa perlu dipotong.
           */}
           <div className="mt-14 grid gap-4 lg:gap-5">
             <div className="grid gap-4 md:grid-cols-2 lg:gap-5">
-              <article className="relative flex min-h-[250px] flex-col overflow-hidden rounded-2xl bg-[#22381e] p-7 lg:p-8">
-                <div className="relative z-10">
-                  <h3 className="text-balance font-serif text-[20px] font-semibold leading-[1.2] text-white lg:text-[23px]">
-                    {b.certified.title}
-                  </h3>
-                  <p className="mt-2.5 max-w-[46ch] text-[14px] leading-[1.6] text-[#cfdccd]">
-                    {b.certified.desc}
-                  </p>
-                </div>
-
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute inset-x-0 -bottom-4 flex items-end justify-between"
-                >
-                  <Image
-                    src="/images/ddsm/coin-plain.png"
-                    alt=""
-                    width={300}
-                    height={139}
-                    className="-ml-8 w-[142px] lg:w-[158px]"
-                  />
-                  <Image
-                    src="/images/ddsm/pouch.png"
-                    alt=""
-                    width={352}
-                    height={340}
-                    className="w-[122px] lg:w-[136px]"
-                  />
-                  <Image
-                    src="/images/ddsm/coin-hole.png"
-                    alt=""
-                    width={300}
-                    height={194}
-                    className="-mr-7 w-[148px] lg:w-[164px]"
-                  />
-                </div>
-              </article>
-
-              <article className="relative flex min-h-[250px] flex-col justify-center overflow-hidden rounded-2xl bg-[#efeae6] p-7 lg:p-8">
-                <div className="relative z-10 max-w-[56%]">
-                  <h3 className="text-balance font-serif text-[20px] font-semibold leading-[1.2] text-ddsm-ink lg:text-[23px]">
-                    {b.rates.title}
-                  </h3>
-                  <p className="mt-2.5 text-[14px] leading-[1.6] text-ddsm-body">{b.rates.desc}</p>
-                </div>
-
-                {/* Angkanya sengaja sama dengan kartu harga di atas halaman —
-                    dua "harga hari ini" yang berbeda dalam satu halaman
-                    terbaca sebagai bug, bukan sebagai hiasan. */}
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute -right-7 top-1/2 h-[208px] w-[132px] -translate-y-1/2 rotate-[-8deg] rounded-[22px] border-[3px] border-[#20241f] bg-ddsm-forest p-3 shadow-[0_18px_36px_rgba(30,40,28,0.28)]"
-                >
-                  <span className="mx-auto mb-2 block h-[3px] w-8 rounded-full bg-white/25" />
-                  <p className="text-[7px] font-semibold tracking-[0.14em] text-ddsm-gold">DDSM</p>
-                  <p className="mt-3 text-[7px] text-ddsm-dim">{t.buy} / gr</p>
-                  <p className="text-[13px] font-semibold text-white">Rp 2.810.000</p>
-                  <p className="text-[7px] font-semibold text-[#7ad18f]">↑ {t.buyDelta}</p>
-                  <div className="mt-3 flex h-[56px] items-end gap-[3px]">
-                    {[38, 52, 44, 66, 58, 78, 70, 92].map((v, i) => (
-                      <span
-                        key={i}
-                        style={{ height: `${v}%` }}
-                        className="flex-1 rounded-[1px] bg-ddsm-gold/70"
-                      />
-                    ))}
-                  </div>
-                </div>
-              </article>
+              <BentoCard src="/images/ddsm/bento-1.webp" width={1182} height={570} sizes="(max-width: 768px) 100vw, 50vw" item={b.certified} />
+              <BentoCard src="/images/ddsm/bento-2.webp" width={1182} height={570} sizes="(max-width: 768px) 100vw, 50vw" item={b.rates} />
             </div>
-
-            <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-[1fr_1fr_1.35fr] lg:gap-5">
-              <article className="relative flex min-h-[250px] flex-col justify-center overflow-hidden rounded-2xl bg-[#d4af37] p-7">
-                <div className="relative z-10 max-w-[62%]">
-                  <h3 className="text-balance font-serif text-[20px] font-semibold leading-[1.2] text-[#2a2005] lg:text-[22px]">
-                    {b.compliant.title}
-                  </h3>
-                  <p className="mt-2.5 text-[13px] leading-[1.6] text-[#3d2f06]">
-                    {b.compliant.desc}
-                  </p>
-                </div>
-
-                <div aria-hidden className="pointer-events-none absolute -right-4 top-8 space-y-2">
-                  {[
-                    { l: t.buy, v: "Rp 2.810.000", d: `↑ ${t.buyDelta}`, up: true },
-                    { l: t.sell, v: "Rp 2.623.000", d: `↓ ${t.sellDelta}`, up: false },
-                  ].map((c, i) => (
-                    <div
-                      key={c.l}
-                      className={`w-[118px] rounded-lg bg-white px-2.5 py-2 shadow-[0_8px_18px_rgba(80,60,10,0.24)] ${
-                        i === 0 ? "rotate-[-5deg]" : "ml-3 rotate-[3deg]"
-                      }`}
-                    >
-                      <p className="text-[7px] text-ddsm-muted">{c.l} / gr</p>
-                      <p className="text-[11px] font-semibold text-ddsm-ink">{c.v}</p>
-                      <p
-                        className={`text-[7px] font-semibold ${c.up ? "text-[#2f7d43]" : "text-[#b23f3b]"}`}
-                      >
-                        {c.d}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </article>
-
-              {/*
-                Latar amber diambil dari asetnya, tapi teksnya TIDAK putih
-                seperti di komp: putih di atas #d3933c hanya 2,6:1 — di bawah
-                ambang baca, bahkan untuk teks besar. Cokelat tua di bawah ini
-                ±7:1 dan mempertahankan warna kartunya.
-              */}
-              <article className="relative flex min-h-[250px] items-center gap-3 overflow-hidden rounded-2xl bg-[#d3933c] p-6">
-                <Image
-                  src="/images/ddsm/safe.png"
-                  alt=""
-                  width={388}
-                  height={400}
-                  aria-hidden
-                  className="w-[112px] shrink-0 lg:w-[126px]"
-                />
-                <div>
-                  <h3 className="text-balance font-serif text-[19px] font-semibold leading-[1.2] text-[#3a2405] lg:text-[21px]">
-                    {b.legacy.title}
-                  </h3>
-                  <p className="mt-2 text-[13px] leading-[1.6] text-[#462d07]">{b.legacy.desc}</p>
-                </div>
-              </article>
-
-              <article className="relative flex min-h-[250px] flex-col justify-center overflow-hidden rounded-2xl bg-[#273b22] p-7 lg:p-8">
-                <div className="relative z-10 max-w-[54%]">
-                  <h3 className="text-balance font-serif text-[20px] font-semibold leading-[1.2] text-white lg:text-[23px]">
-                    {b.cta.title}
-                  </h3>
-                  <p className="mt-2.5 text-[13px] leading-[1.6] text-[#cfdccd]">{b.cta.desc}</p>
-                </div>
-                <Image
-                  src="/images/ddsm/bars.png"
-                  alt=""
-                  width={760}
-                  height={517}
-                  aria-hidden
-                  className="pointer-events-none absolute -right-5 bottom-0 w-[200px] lg:w-[224px]"
-                />
-              </article>
-            </div>
-          </div>
-        </Shell>
-      </section>
-
-      {/* Pita visual. Peredamnya sengaja pekat: versi sebelumnya menaruh teks
-          putih di atas foto emas terang dengan opacity 55%, dan hasilnya
-          nyaris tidak terbaca. */}
-      <section className="relative isolate overflow-hidden bg-ddsm-green">
-        <Image
-          src="/images/logam-mulia.jpg"
-          alt=""
-          fill
-          sizes="100vw"
-          quality={70}
-          className="object-cover"
-        />
-        <div aria-hidden className="absolute inset-0 bg-ddsm-green/85" />
-        <Shell className="relative">
-          <div className="max-w-xl py-20 lg:py-24">
-            <Eyebrow tone="gold">{dict.pages["physical-gold"].eyebrow}</Eyebrow>
-            <h2 className="mt-4 font-serif text-[30px] font-semibold leading-[1.08] tracking-[-0.02em] text-white lg:text-[42px]">
-              {dict.pages["physical-gold"].title}
-            </h2>
-            <p className="mt-5 text-[16px] leading-[1.7] text-[#d5e0d3]">
-              {dict.pages["physical-gold"].lead}
-            </p>
-            <div className="mt-8">
-              <Btn href={`/ddsm/${lang}/physical-gold`} tone="gold">
-                {dict.common.readMore}
-              </Btn>
+            <div className="grid gap-4 md:grid-cols-[1fr_1fr_1.35fr] lg:gap-5">
+              <BentoCard src="/images/ddsm/bento-3.webp" width={690} height={570} sizes="(max-width: 768px) 100vw, 30vw" item={b.compliant} />
+              <BentoCard src="/images/ddsm/bento-4.webp" width={690} height={570} sizes="(max-width: 768px) 100vw, 30vw" item={b.legacy} />
+              <BentoCard src="/images/ddsm/bento-5.webp" width={932} height={570} sizes="(max-width: 768px) 100vw, 40vw" item={b.cta} />
             </div>
           </div>
         </Shell>
@@ -326,7 +235,9 @@ export default async function DdsmHome({ params }: { params: Promise<{ lang: str
 
             <div className="overflow-x-auto rounded-xl border border-[#d5ded3] bg-white shadow-[0_12px_28px_rgba(44,60,43,0.07)]">
               <table className="w-full min-w-[520px] border-collapse text-left text-[14px]">
-                <caption className="sr-only">{dict.home.market.heading}</caption>
+                <caption className="sr-only">
+                  {dict.home.market.heading}
+                </caption>
                 <thead className="bg-ddsm-green-2 text-white">
                   <tr>
                     {dict.home.market.cols.map((c, i) => (
@@ -342,8 +253,13 @@ export default async function DdsmHome({ params }: { params: Promise<{ lang: str
                 </thead>
                 <tbody>
                   {prices.map((row) => (
-                    <tr key={row.weight} className="border-b border-[#e4e9e3] last:border-0">
-                      <td className="px-5 py-3.5 font-semibold text-ddsm-ink">{row.weight}</td>
+                    <tr
+                      key={row.weight}
+                      className="border-b border-[#e4e9e3] last:border-0"
+                    >
+                      <td className="px-5 py-3.5 font-semibold text-ddsm-ink">
+                        {row.weight}
+                      </td>
                       <td className="px-5 py-3.5 text-ddsm-body">{row.buy}</td>
                       <td className="px-5 py-3.5 text-ddsm-body">{row.sell}</td>
                       <td className="px-5 py-3.5 text-right">
