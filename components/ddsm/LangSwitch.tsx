@@ -3,31 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
-/* Diimpor dari "content/ddsm/types" langsung, bukan lewat barrel
-   "@/content/ddsm". Barrel-nya merangkai `DICTS` di level modul, dan sekali
-   komponen klien menyentuhnya seluruh isi ketiga kamus ikut masuk bundel
-   browser — ±22 kB gz copy yang tidak pernah dipakai di sisi klien. types.ts
-   tidak mengimpor kamus apa pun, jadi aman. */
 import { LOCALE_META, LOCALES, type Dict, type Locale } from "@/content/ddsm/types";
 
-/**
- * Pemilih bahasa berbentuk dropdown, tinggal di footer.
- *
- * Dibangun di atas <details>/<summary>, bukan tombol + state React. Alasannya:
- * membuka-tutupnya ditangani browser sendiri, jadi dropdown ini tetap bisa
- * dibuka walau JavaScript gagal dimuat, dan isinya tetap tiga <a> sungguhan —
- * bisa di-crawl mesin pencari dan bisa dibuka di tab baru. JavaScript di sini
- * cuma pemanis: menutup panel setelah memilih, saat menekan Escape, atau saat
- * mengklik di luar.
- *
- * Panelnya membuka ke ATAS: footer adalah elemen terakhir halaman, jadi panel
- * yang membuka ke bawah akan menjulur melewati dasar halaman dan memaksa
- * pengunjung menggulir hanya untuk melihat pilihannya.
- *
- * Path bahasa lain dihitung dari pathname berjalan — segmen indeks ke-2 pada
- * "/ddsm/<lang>/<slug>" ditukar — sehingga pengunjung tetap berada di halaman
- * yang sama saat berpindah bahasa, bukan dilempar ke beranda.
- */
 export function LangSwitch({ dict, className }: { dict: Dict; className?: string }) {
   const pathname = usePathname();
   const ref = useRef<HTMLDetailsElement>(null);
@@ -40,8 +17,6 @@ export function LangSwitch({ dict, className }: { dict: Dict; className?: string
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== "Escape" || !ref.current?.open) return;
       ref.current.open = false;
-      /* Fokus dikembalikan ke tombolnya, kalau tidak fokus keyboard jatuh ke
-         awal halaman setelah panel tertutup. */
       ref.current.querySelector("summary")?.focus();
     };
     const onPointer = (e: PointerEvent) => {
@@ -58,23 +33,18 @@ export function LangSwitch({ dict, className }: { dict: Dict; className?: string
   }, []);
 
   const pathFor = (target: Locale) => {
-    const parts = (pathname || `/ddsm/${dict.locale}`).split("/");
-    // ["", "ddsm", "<lang>", ...sisa]
-    if (parts[1] === "ddsm" && parts.length > 2) {
-      parts[2] = target;
+    const parts = (pathname || `/${dict.locale}`).split("/");
+    if ((LOCALES as readonly string[]).includes(parts[1])) {
+      parts[1] = target;
       return parts.join("/");
     }
-    return `/ddsm/${target}`;
+    return `/${target}`;
   };
 
   const current = LOCALE_META[dict.locale];
 
   return (
     <details ref={ref} className={`group relative w-fit ${className ?? ""}`}>
-      {/* Label untuk pembaca layar ditaruh sebagai teks sr-only, bukan
-          aria-label: aria-label akan MENGGANTI teks yang terlihat ("English"),
-          sehingga nama yang diucapkan tidak lagi memuat apa yang dilihat
-          pengguna — pelanggaran kriteria label-in-name. */}
       <summary className="flex cursor-pointer list-none items-center gap-2.5 rounded-[5px] border border-white/35 px-2.5 py-[7px] text-[13px] font-medium text-white outline-none transition-colors hover:border-white/60 focus-visible:ring-2 focus-visible:ring-[#d4af37] [&::-webkit-details-marker]:hidden">
         <span className="sr-only">{dict.common.langSwitchLabel}: </span>
         <span aria-hidden className="text-[16px] leading-none">

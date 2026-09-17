@@ -1,34 +1,24 @@
-/**
- * Merender aset DDSM dari SVG sumber di public/images/ menjadi WebP 2x di
- * public/images/ddsm/:
- *   - asset{1..5}.svg -> bento-{1..5}.webp   kartu bento beranda
- *   - ellipse.svg     -> hero-ellipse.webp    lingkaran emas di hero
- *
- * Kenapa tidak memakai SVG-nya langsung: berkas-berkas itu hanyalah pembungkus
- * PNG besar ber-base64 (kelima kartu bento ±7,8 MB, ellipse.svg sendiri
- * 26 MB), dan next/image tidak mengoptimalkan SVG — berkasnya akan diunduh
- * mentah oleh setiap pengunjung. WebP hasil render ini kemudian dikecilkan lagi
- * oleh next/image per lebar layar.
- *
- * SVG tetap menjadi sumbernya. Jalankan ulang setiap kali salah satunya diganti:
- *   node scripts/render-ddsm-assets.cjs
- */
 const fs = require("node:fs");
 const path = require("node:path");
 const sharp = require("sharp");
 
 const ROOT = path.join(__dirname, "..", "public", "images");
 const OUT = path.join(ROOT, "ddsm");
-const SCALE = 2; // 2x supaya tetap tajam di layar rapat
+const APP = path.join(__dirname, "..", "app");
+const SCALE = 2;
 
-// urutan = urutan kartu di beranda
 const BENTO = [
-  ["asset1.svg", "bento-1.webp"], // Certified Physical Gold
-  ["asset2.svg", "bento-2.webp"], // Transparent Live Rates
-  ["asset3.svg", "bento-3.webp"], // Fully Compliant & Licensed
-  ["asset4.svg", "bento-4.webp"], // Legacy Asset Protection
-  ["asset5.svg", "bento-5.webp"], // Your gold journey
+  ["asset1.svg", "bento-1.webp"],
+  ["asset2.svg", "bento-2.webp"],
+  ["asset3.svg", "bento-3.webp"],
+  ["asset4.svg", "bento-4.webp"],
+  ["asset5.svg", "bento-5.webp"],
 ];
+
+const LOGO_GOLD = "#d4af37";
+const ICON_BG = "#2a3a24";
+const LOGO_WIDTH = 900;
+const INK = 8;
 
 const report = (name, info) =>
   console.log(`${name}  ${info.width}x${info.height}  ${Math.round(info.size / 1024)} kB`);
@@ -36,28 +26,12 @@ const report = (name, info) =>
 async function renderBento() {
   for (const [src, out] of BENTO) {
     const info = await sharp(path.join(ROOT, src), { density: 72 * SCALE })
-      // kualitas tinggi + alpha penuh: ada teks di dalam gambar, dan sudut
-      // membulat kartunya adalah area transparan
       .webp({ quality: 92, alphaQuality: 100, effort: 6 })
       .toFile(path.join(OUT, out));
     report(`${src} -> ddsm/${out}`, info);
   }
 }
 
-/**
- * ellipse.svg tidak bisa dirender librsvg (sharp): XML-nya 26 MB, melewati
- * batas parser. Isinya sederhana, jadi dirakit ulang langsung dari PNG
- * tertanamnya, mengikuti struktur SVG-nya persis:
- *   1. PNG diskalakan & diletakkan di kotak lingkaran sesuai matriks <pattern>
- *      (patternContentUnits="objectBoundingBox"),
- *   2. lapisan warna dengan mix-blend-mode soft-light,
- *   3. dipotong menjadi lingkaran,
- *   4. dibalik vertikal — <circle> memakai transform matrix(1 0 0 -1 0 ty),
- *   5. dipotong ke kanvas SVG (bagian atas lingkaran memang terpotong).
- * Angka-angkanya dibaca dari berkas, bukan ditulis mati. Kalau ellipse.svg
- * diganti dengan struktur yang berbeda, skrip ini berhenti dengan pesan yang
- * menyebut bagian mana yang tidak lagi cocok.
- */
 async function renderEllipse() {
   const svg = fs.readFileSync(path.join(ROOT, "ellipse.svg"), "utf8");
   const need = (re, what) => {
@@ -77,8 +51,8 @@ async function renderEllipse() {
   const tint = need(/fill="(#[0-9A-Fa-f]{6})" style="mix-blend-mode:soft-light"/, "lapisan soft-light")[1];
   const png = Buffer.from(need(/base64,([^"]+)"/, "PNG tertanam")[1], "base64");
 
-  const box = Math.round(2 * r * SCALE); // sisi kotak lingkaran, px keluaran
-  const w = Math.round(iw * m[0] * box); // matriks pattern: satuan bbox -> px
+  const box = Math.round(2 * r * SCALE);
+  const w = Math.round(iw * m[0] * box);
   const h = Math.round(ih * m[3] * box);
   const left = Math.round(-m[4] * box);
   const top = Math.round(m[5] * box);
@@ -100,8 +74,6 @@ async function renderEllipse() {
   );
   const step3 = await sharp(step2).composite([{ input: circle, blend: "dest-in" }]).png().toBuffer();
 
-  // baris ke-ρ hasil balik = y lokal (2r − ρ); kanvas y' = ty − y lokal, jadi
-  // kanvas mulai dari ρ = 2r − ty
   const info = await sharp(await sharp(step3).flip().png().toBuffer())
     .extract({ left: 0, top: Math.round((2 * r - ty) * SCALE), width: box, height: Math.round(H * SCALE) })
     .webp({ quality: 86, alphaQuality: 100, effort: 6 })
@@ -109,9 +81,100 @@ async function renderEllipse() {
   report("ellipse.svg -> ddsm/hero-ellipse.webp", info);
 }
 
+function alphaBox(alpha, width, x0, x1, y0, y1) {
+  let left = x1;
+  let right = -1;
+  let top = y1;
+  let bottom = -1;
+  for (let y = y0; y < y1; y++) {
+    for (let x = x0; x < x1; x++) {
+      if (alpha[y * width + x] > INK) {
+        if (x < left) left = x;
+        if (x > right) right = x;
+        if (y < top) top = y;
+        if (y > bottom) bottom = y;
+      }
+    }
+  }
+  if (right < 0) throw new Error("DDSM-logo.png: tidak ada piksel logo di area yang diperiksa");
+  return { left, top, width: right - left + 1, height: bottom - top + 1 };
+}
+
+async function recolor(src, box, color) {
+  const region = await sharp(src).ensureAlpha().extract(box).png().toBuffer();
+  const alpha = await sharp(region).extractChannel(3).raw().toBuffer();
+  return sharp({ create: { width: box.width, height: box.height, channels: 3, background: color } })
+    .joinChannel(alpha, { raw: { width: box.width, height: box.height, channels: 1 } })
+    .png()
+    .toBuffer();
+}
+
+async function renderLogo() {
+  const src = path.join(ROOT, "DDSM-logo.png");
+  const { data: alpha, info } = await sharp(src)
+    .ensureAlpha()
+    .extractChannel(3)
+    .raw()
+    .toBuffer({ resolveWithObject: true });
+  const { width: W, height: H } = info;
+
+  const full = alphaBox(alpha, W, 0, W, 0, H);
+  const logo = await sharp(await recolor(src, full, LOGO_GOLD))
+    .resize({ width: LOGO_WIDTH })
+    .png({ compressionLevel: 9 })
+    .toFile(path.join(OUT, "logo-gold.png"));
+  report("DDSM-logo.png -> ddsm/logo-gold.png", logo);
+
+  const rowHasInk = (y) => {
+    for (let x = full.left; x < full.left + full.width; x++) if (alpha[y * W + x] > INK) return true;
+    return false;
+  };
+  let mainBottom = full.top;
+  while (mainBottom < full.top + full.height && rowHasInk(mainBottom)) mainBottom++;
+
+  const colHasInk = (x) => {
+    for (let y = full.top; y < mainBottom; y++) if (alpha[y * W + x] > INK) return true;
+    return false;
+  };
+  let markRight = full.left;
+  while (markRight < full.left + full.width && colHasInk(markRight)) markRight++;
+  const mark = alphaBox(alpha, W, full.left, markRight, full.top, mainBottom);
+  if (mark.width > full.width * 0.5 || Math.abs(mark.width - mark.height) > mark.height * 0.1) {
+    throw new Error(
+      `DDSM-logo.png: simbol di kiri tidak lagi berbentuk persegi (${mark.width}x${mark.height}) — periksa logonya`,
+    );
+  }
+  const markPng = await recolor(src, mark, LOGO_GOLD);
+
+  for (const [file, size, radius] of [
+    ["icon.png", 512, 112],
+    ["apple-icon.png", 180, 0],
+  ]) {
+    const inner = Math.round(size * 0.64);
+    const glyph = await sharp(markPng)
+      .resize({ width: inner, height: inner, fit: "contain", background: { r: 0, g: 0, b: 0, alpha: 0 } })
+      .png()
+      .toBuffer();
+    const bg = Buffer.from(
+      `<svg width="${size}" height="${size}"><rect width="${size}" height="${size}" rx="${radius}" fill="${ICON_BG}"/></svg>`,
+    );
+    const out = await sharp(bg)
+      .composite([{ input: glyph, gravity: "center" }])
+      .png({ compressionLevel: 9 })
+      .toFile(path.join(APP, file));
+    report(`DDSM-logo.png -> app/${file}`, out);
+  }
+}
+
+const TASKS = { bento: renderBento, hero: renderEllipse, logo: renderLogo };
+
 (async () => {
-  await renderBento();
-  await renderEllipse();
+  const only = process.argv.slice(2);
+  const unknown = only.filter((name) => !(name in TASKS));
+  if (unknown.length) throw new Error(`bagian tidak dikenal: ${unknown.join(", ")} (pilihan: ${Object.keys(TASKS).join(", ")})`);
+  for (const [name, run] of Object.entries(TASKS)) {
+    if (!only.length || only.includes(name)) await run();
+  }
 })().catch((err) => {
   console.error(err.message);
   process.exit(1);

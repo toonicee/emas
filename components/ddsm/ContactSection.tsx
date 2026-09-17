@@ -3,17 +3,9 @@ import { Reveal } from "@/components/motion/Reveal";
 import { ContactForm } from "./ContactForm";
 import { Shell } from "./ui";
 
-/**
- * Seksi kontak: judul di kiri, formulir di kanan.
- *
- * Formulirnya (ContactForm, client component) tersambung ke Google Sheet lewat
- * Server Action — lihat app/ddsm/contact-action.ts. Yang dioper ke klien hanya
- * copy kontak, bukan seluruh kamus: props client component ikut terserialisasi
- * ke payload halaman.
- */
 export function ContactSection({ dict }: { dict: Dict }) {
   return (
-    <section id="contact" className="scroll-mt-20 bg-ddsm-green py-20 text-ddsm-cream lg:py-24">
+    <section id="contact" className="bg-ddsm-green py-20 text-ddsm-cream lg:py-24">
       <Shell>
         <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
           <Reveal>

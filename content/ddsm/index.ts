@@ -1,7 +1,7 @@
 import { id } from "./id";
 import { en } from "./en";
 import { zh } from "./zh";
-import { LOCALES, type Dict, type Locale, type PageSlug } from "./types";
+import { LOCALES, type Dict, type Locale } from "./types";
 
 export * from "./types";
 
@@ -18,10 +18,10 @@ export function getDict(locale: Locale): Dict {
 export const ddsmSite = {
   brand: "DDSM",
   legalName: "PT Datar Dana Sukses Makmur",
-  email: "hello@ddsm.co.id",
-} as const;
+  email: "corporate@dutadanasuksesmakmur.com",
+  url: process.env.NEXT_PUBLIC_SITE_URL || "https://apgold.co.id",
+};
 
-/** "/ddsm/id/wealth" — satu tempat merangkai URL supaya tidak salah ketik. */
-export function ddsmPath(locale: Locale, slug?: PageSlug): string {
-  return slug ? `/ddsm/${locale}/${slug}` : `/ddsm/${locale}`;
+export function ddsmPath(locale: Locale): string {
+  return `/${locale}`;
 }

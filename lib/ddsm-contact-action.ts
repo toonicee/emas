@@ -1,26 +1,8 @@
 "use server";
 
-import { isLocale, type ContactCategory } from "@/content/ddsm";
+import { LOCALES, isLocale, type ContactCategory } from "@/content/ddsm";
 import { id as idDict } from "@/content/ddsm/id";
 import { checkContact, type ContactField } from "@/lib/ddsm-contact-rules";
-
-/**
- * Server Action formulir kontak DDSM → Google Sheet.
- *
- * Alurnya: formulir → action ini (server) → Web App Google Apps Script
- * (scripts/google-apps-script/ddsm-contact.gs) → satu baris baru di Sheet.
- *
- * Action ini adalah endpoint POST publik — siapa pun bisa memanggilnya tanpa
- * lewat UI (lihat panduan Server Actions Next). Karena itu:
- *  - semua isian divalidasi ulang di sini dengan aturan yang SAMA dengan
- *    browser (lib/ddsm-contact-rules.ts) — validasi di browser hanya
- *    kenyamanan, bukan pengaman;
- *  - URL dan secret Apps Script hanya dibaca dari env server (tanpa awalan
- *    NEXT_PUBLIC_), jadi tidak pernah sampai ke browser;
- *  - nilai kembaliannya dibatasi pada yang dirender UI: status, nama field yang
- *    salah, dan isian pengunjung sendiri (dipakai mengisi ulang formulir, karena
- *    React 19 mengosongkan formulir setiap kali action selesai).
- */
 
 export type ContactValues = Partial<Record<"name" | "email" | "phone" | "category" | "message" | "consent", string>>;
 export type ContactState =
@@ -28,9 +10,7 @@ export type ContactState =
   | { status: "success"; id: number }
   | { status: "invalid" | "error"; fields: ContactField[]; values: ContactValues };
 
-/* Hanya path halaman DDSM yang dicatat; selebihnya dikosongkan supaya kolom
-   Halaman tidak bisa diisi teks sembarang oleh pemanggil langsung. */
-const PAGE_RE = /^\/ddsm(\/[a-z-]+){0,2}$/;
+const PAGE_RE = new RegExp(`^/(?:${LOCALES.join("|")})$`);
 
 const str = (fd: FormData, key: string) => {
   const v = fd.get(key);
@@ -38,9 +18,6 @@ const str = (fd: FormData, key: string) => {
 };
 
 export async function submitContact(_prev: ContactState, formData: FormData): Promise<ContactState> {
-  /* Honeypot: kolom tersembunyi yang tidak pernah terlihat oleh manusia, tapi
-     diisi bot yang mengisi semua input. Pura-pura berhasil, supaya bot tidak
-     belajar bahwa kirimannya dibuang. */
   if (str(formData, "website")) return { status: "success", id: Date.now() };
 
   const values = {
@@ -68,10 +45,6 @@ export async function submitContact(_prev: ContactState, formData: FormData): Pr
   const page = str(formData, "page");
 
   try {
-    /* Web App Apps Script menjawab POST dengan 302 ke URL googleusercontent;
-       hasil JSON baru keluar di permintaan lanjutan itu, jadi redirect wajib
-       diikuti. Batas waktu 10 detik: Apps Script bisa lambat saat "dingin",
-       tapi pengunjung tidak boleh menunggu tanpa kepastian. */
     const res = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -80,7 +53,6 @@ export async function submitContact(_prev: ContactState, formData: FormData): Pr
         name: values.name,
         email: values.email,
         phone: values.phone,
-        // Label Indonesia, supaya kolom Kategori seragam apa pun bahasa pengirimnya.
         category: idDict.home.contact.categories[values.category as ContactCategory],
         message: values.message,
         locale: isLocale(locale) ? locale : "",

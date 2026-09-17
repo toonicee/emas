@@ -1,5 +1,5 @@
 {
-  "name": "suvarna",
+  "name": "ddsm",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -12,7 +12,6 @@
     "next": "16.3.4",
     "react": "19.2.8",
     "react-dom": "19.2.8",
-    "schema-dts": "^2.0.0",
     "sharp": "^0.35.4",
     "three": "^0.186.0"
   },

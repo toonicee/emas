@@ -1,17 +1,7 @@
 import type { Dict } from "@/content/ddsm";
 import { LangSwitch } from "./LangSwitch";
+import { Logo } from "./Logo";
 
-/**
- * Footer DDSM, mengikuti komp desain: identitas + kontak di kiri, disclaimer,
- * nomor izin, dan pemilih bahasa di kanan, hak cipta di tengah bawah.
- *
- * Pemilih bahasa tinggal di sini, bukan di header — dan panelnya membuka ke
- * ATAS (lihat LangSwitch): footer adalah elemen terakhir halaman, jadi panel
- * yang membuka ke bawah akan menjulur melewati dasar halaman.
- *
- * Abu-abu disclaimer sedikit lebih terang daripada komp (#8c8c8c): nilai di
- * komp hanya ±4:1 di atas #1c1c1c, di bawah ambang baca untuk teks 13px.
- */
 export function Footer({ dict }: { dict: Dict }) {
   const f = dict.footer;
 
@@ -20,10 +10,8 @@ export function Footer({ dict }: { dict: Dict }) {
       <div className="mx-auto w-full max-w-[880px] px-5 pb-6 pt-10 sm:px-8">
         <div className="grid gap-10 md:grid-cols-[220px_1fr] md:gap-x-[72px]">
           <address className="not-italic">
-            <p className="text-[24px] font-extrabold leading-none tracking-[0.06em] text-[#d4af37]">
-              DDSM
-            </p>
-            <p className="mt-4 text-[13px] font-medium leading-[1.65]">{f.address}</p>
+            <Logo height={64} className="h-16 w-auto" />
+            <p className="mt-5 text-[13px] font-medium leading-[1.65]">{f.address}</p>
 
             <ul className="mt-6 space-y-3 text-[13px] font-medium">
               <li>

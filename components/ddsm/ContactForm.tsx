@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { useActionState, useEffect, useRef, useState, useSyncExternalStore } from "react";
-import { submitContact, type ContactState } from "@/app/ddsm/contact-action";
+import { submitContact, type ContactState } from "@/lib/ddsm-contact-action";
 import {
   checkContact,
   CONTACT_LIMITS,
@@ -11,17 +11,12 @@ import {
   type ContactField,
   type ContactInput,
 } from "@/lib/ddsm-contact-rules";
-/* Dari "content/ddsm/types" langsung, bukan barrel "@/content/ddsm": barrel
-   merangkai ketiga kamus di level modul, dan komponen klien yang menyentuhnya
-   ikut menyeret seluruh copy ke bundel browser. */
 import { CONTACT_CATEGORIES, type Dict, type Locale } from "@/content/ddsm/types";
 
 type Copy = Dict["home"]["contact"];
 
 const INITIAL: ContactState = { status: "idle" };
 const EMPTY: ContactInput = { name: "", email: "", phone: "", category: "", message: "", consent: false };
-/* Pesan cadangan kalau server menandai kolom yang di browser dianggap valid
-   (mis. pemanggil langsung, atau aturan yang kelak berubah). */
 const FALLBACK: Record<ContactField, ContactErrorKey> = {
   name: "required",
   email: "email",
@@ -32,13 +27,8 @@ const FALLBACK: Record<ContactField, ContactErrorKey> = {
 };
 
 const noopSubscribe = () => () => {};
-/** true hanya setelah hidrasi. Tombol kirim baru boleh dinonaktifkan setelah
-    JavaScript jalan: kalau sudah nonaktif sejak HTML server, pengunjung tanpa
-    JavaScript tidak akan pernah bisa mengirim formulir. */
 const useHydrated = () => useSyncExternalStore(noopSubscribe, () => true, () => false);
 
-/** Event formulir menandai target-nya sebagai HTMLFormElement; elemen yang
-    sebenarnya memicu event adalah kolom di dalamnya. */
 const asField = (t: EventTarget) => t as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
 
 function readForm(form: HTMLFormElement): ContactInput {
@@ -53,9 +43,6 @@ function readForm(form: HTMLFormElement): ContactInput {
   };
 }
 
-/** Tanda wajib merah. aria-hidden: atribut `required` pada input sudah
-    menyampaikan status wajib ke pembaca layar, jadi bintang ini tidak perlu
-    ikut diucapkan. */
 function Req() {
   return (
     <span aria-hidden className="text-[#e5484d]">
@@ -72,19 +59,8 @@ const control = (bad: boolean) =>
   }`;
 const labelCls = "block text-[14px] font-semibold text-[#1a1a1a]";
 
-/**
- * Formulir "Send Us a Message" — tersambung ke Google Sheet lewat Server
- * Action `submitContact`.
- *
- * Tetap berfungsi tanpa JavaScript: `action` formulir adalah Server Action,
- * jadi sebelum hidrasi (atau bila JS gagal dimuat) browser mengirimnya sebagai
- * POST biasa dan halaman dirender ulang dengan hasilnya.
- */
 export function ContactForm({ copy, locale }: { copy: Copy; locale: Locale }) {
   const [state, formAction, pending] = useActionState(submitContact, INITIAL);
-  /* Key berganti setiap kali kiriman berhasil: FormBody dipasang ulang, jadi
-     semua kolom kosong lagi dan status validasinya bersih — "clear field"
-     tanpa harus mengosongkan tiap input satu per satu. */
   const key = state.status === "success" ? `ok-${state.id}` : "form";
   return (
     <FormBody key={key} copy={copy} locale={locale} state={state} formAction={formAction} pending={pending} />
@@ -113,10 +89,6 @@ function FormBody({
   const v = failed ? state.values : {};
   const serverBad = state.status === "invalid" ? state.fields : [];
 
-  /* Status awal dihitung dari isian yang dikembalikan server (kosong untuk
-     formulir baru). Tanpa JavaScript, hanya nilai awal inilah yang pernah
-     dipakai — kalau dihitung dari formulir kosong, telepon "12-34-56-7" yang
-     ditolak server akan diberi pesan "wajib diisi", bukan "format salah". */
   const [errors, setErrors] = useState<ContactErrors>(() =>
     checkContact({ ...EMPTY, ...v, consent: v.consent === "on" }),
   );
@@ -131,9 +103,6 @@ function FormBody({
     if (k in FALLBACK) setTouched((t) => (t[k] ? t : { ...t, [k]: true }));
   };
 
-  /* Nilai bisa sudah terisi sebelum hidrasi (autofill, tombol Back browser),
-     tanpa event input yang sempat ditangkap. Cek sekali setelah frame
-     pertama; setState-nya di callback rAF, bukan langsung di badan effect. */
   useEffect(() => {
     const id = requestAnimationFrame(() => {
       if (formRef.current) setErrors(checkContact(readForm(formRef.current)));
@@ -150,8 +119,6 @@ function FormBody({
     return touched[k] ? (errors[k] ?? null) : null;
   };
   const describe = (k: ContactField) => (errorOf(k) ? { "aria-describedby": `ddsm-${k}-err` } : {});
-  /* Fungsi biasa, bukan komponen: komponen yang didefinisikan di dalam render
-     dibuat ulang tiap render dan membuat React memasang ulang elemennya. */
   const errorText = (k: ContactField) => {
     const e = errorOf(k);
     return e ? (
@@ -171,7 +138,6 @@ function FormBody({
         revalidate();
       }}
       onChange={(e) => {
-        // Select dan checkbox dianggap "selesai diisi" begitu diubah.
         const t = asField(e.target);
         if (t.tagName === "SELECT" || (t as HTMLInputElement).type === "checkbox") touch(t.name);
         setDirty(true);
@@ -181,8 +147,6 @@ function FormBody({
         touch(asField(e.target).name);
         revalidate();
       }}
-      /* Jaring pengaman untuk autofill yang tidak memicu event input: begitu
-         pointer atau fokus masuk ke formulir, status tombol dihitung ulang. */
       onFocus={revalidate}
       onPointerEnter={revalidate}
       className="relative rounded-2xl bg-white p-6 text-ddsm-ink shadow-[0_18px_38px_rgba(0,0,0,0.18)] sm:p-7"
@@ -201,9 +165,6 @@ function FormBody({
       <input type="hidden" name="locale" value={locale} />
       <input type="hidden" name="page" value={pathname ?? ""} />
 
-      {/* Honeypot: tak terlihat, tak bisa difokus, tak dibacakan. Manusia tidak
-          pernah mengisinya; bot yang mengisi semua kolom akan terjebak di sini
-          (lihat submitContact). */}
       <div aria-hidden className="absolute -left-[9999px] top-0 h-px w-px overflow-hidden">
         <label>
           Website
@@ -259,9 +220,6 @@ function FormBody({
             {f.phone}
             <Req />
           </label>
-          {/* pattern hanya untuk pengunjung tanpa JavaScript (validasi bawaan
-              browser); dengan JavaScript, aturan lengkap 8–15 digit dari
-              ddsm-contact-rules yang berlaku. */}
           <input
             id="ddsm-phone"
             name="phone"
@@ -285,18 +243,7 @@ function FormBody({
             {f.category}
             <Req />
           </label>
-          {/* Panah bawaan <select> berbeda di tiap browser; appearance-none
-              + ikon sendiri membuatnya sama dengan komp. `invalid:` membuat
-              teks "belum dipilih" tampil abu-abu seperti placeholder input
-              lain — select wajib dengan nilai "" dianggap :invalid. Nilai tiap
-              opsi adalah KUNCI kategori, bukan labelnya (lihat submitContact). */}
           <div className="relative mt-2">
-            {/* key: React tidak memperbarui opsi terpilih-bawaan <select> saat
-                defaultValue berubah, padahal reset formulir otomatis React 19
-                mengembalikan select ke opsi bawaan itu — tanpa ini pilihan
-                kategori hilang setelah kiriman gagal, sementara isian lain
-                bertahan. Mengganti key memasang ulang select dengan
-                defaultValue terbaru. */}
             <select
               key={v.category ?? ""}
               id="ddsm-cat"
@@ -370,8 +317,6 @@ function FormBody({
       >
         {pending ? s.sending : f.submit}
       </button>
-      {/* Tombol nonaktif tidak bisa menjelaskan alasannya sendiri — petunjuk
-          ini yang memberi tahu, dan dibacakan lewat aria-describedby. */}
       {showHint && (
         <p id="ddsm-submit-hint" className="mt-2.5 text-center text-[13px] text-ddsm-muted">
           {s.hint}
@@ -381,9 +326,6 @@ function FormBody({
   );
 }
 
-/** Pesan berhasil di atas formulir yang sudah dikosongkan. Fokus dipindah ke
-    sini supaya pembaca layar langsung membacakannya dan halaman bergulir ke
-    pesan ini — tombol kirim ada di bawah formulir, jauh dari atasnya. */
 function SuccessBanner({ title, body }: { title: string; body: string }) {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {

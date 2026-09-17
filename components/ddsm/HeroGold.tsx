@@ -2,53 +2,26 @@
 
 import { useEffect, useRef, type ReactNode } from "react";
 
-/**
- * Lingkaran emas hero yang "hidup": permukaan bergelombang pelan seperti emas
- * cair, kilau cahaya yang menyapu, dan riak yang mengikuti kursor — dirender
- * dengan Three.js di atas gambar statisnya.
- *
- * Ini peningkatan progresif, bukan pengganti:
- *  - Gambar statis (children — <Image> yang dirender server) tetap tampil
- *    lebih dulu dan tetap menjadi elemen LCP. Kanvas WebGL bukan kandidat
- *    LCP, jadi memasangnya belakangan tidak memundurkan LCP.
- *  - Three.js dimuat lewat import() SETELAH hidrasi, sebagai chunk terpisah —
- *    bukan bagian First Load JS.
- *  - Tidak dimuat sama sekali bila prefers-reduced-motion atau Save-Data
- *    aktif, atau bila WebGL tidak tersedia. Dalam semua kasus itu yang
- *    terlihat tetap gambar statisnya, persis seperti tanpa JavaScript.
- *  - Tekstur memakai URL yang SUDAH dimuat <img> (currentSrc): tidak ada
- *    unduhan tambahan.
- *  - Loop render berhenti saat hero keluar layar atau tab disembunyikan.
- *  - Tidak ada listener scroll. Posisi kursor hanya dicatat di handler dan
- *    dibaca oleh loop, jadi handler-nya tidak memberatkan INP.
- */
-
-/* Geometri lingkaran di dalam gambar, dari ellipse.svg: kanvas 940×880,
-   lingkaran r=470 berpusat di (470, 410) dari atas — 60px atasnya terpotong.
-   Dalam UV (y dari bawah): pusat (0.5, 1 − 410/880), jari-jari (0.5, 470/880). */
 const CIRCLE = [0.5, 1 - 410 / 880, 0.5, 470 / 880] as const;
 
-const VERT = /* glsl */ `
+const VERT = `
 varying vec2 vUv;
 void main() {
   vUv = uv;
   gl_Position = vec4(position.xy, 0.0, 1.0);
 }`;
 
-const FRAG = /* glsl */ `
+const FRAG = `
 precision highp float;
 uniform sampler2D uMap;
 uniform float uTime;
 uniform vec2 uPointer;
 uniform float uHover;
 uniform float uAspect;
-uniform vec4 uCircle; // cx, cy, rx, ry
+uniform vec4 uCircle;
 varying vec2 vUv;
 
 void main() {
-  // Jarak ternormalisasi ke tepi lingkaran: 0 di pusat, 1 di tepi. Distorsi
-  // diredam menjelang tepi supaya sampel tidak jatuh ke area transparan di
-  // luar lingkaran — kalau jatuh, muncul pinggiran gelap.
   float nd = length((vUv - uCircle.xy) / uCircle.zw);
   float inner = 1.0 - smoothstep(0.82, 0.97, nd);
 
@@ -66,15 +39,11 @@ void main() {
   vec2 uv = vUv + (wave + dir * ripple / vec2(uAspect, 1.0)) * inner;
   vec4 col = texture2D(uMap, uv);
 
-  // Kilau: pita diagonal lembut yang menyapu kira-kira tiap 14 detik, plus
-  // cahaya hangat di sekitar kursor.
   float s = fract(t * 0.07) * 2.6 - 0.8;
   float band = smoothstep(0.16, 0.0, abs(vUv.x + vUv.y * 0.55 - s));
   float glow = exp(-dist * 4.5) * 0.16 * uHover;
   col.rgb += (band * 0.09 + glow) * vec3(1.0, 0.87, 0.56);
 
-  // Siluet selalu dari alpha ASLI (tanpa distorsi): tepinya tetap tajam dan
-  // identik dengan gambar statis di bawahnya.
   gl_FragColor = vec4(col.rgb, texture2D(uMap, vUv).a);
 }`;
 
@@ -110,7 +79,7 @@ export function HeroGold({ className, children }: { className?: string; children
         try {
           return new THREE.WebGLRenderer({ alpha: true, antialias: false, powerPreference: "low-power" });
         } catch {
-          return null; // tanpa WebGL: gambar statis tetap tampil
+          return null;
         }
       })();
       if (!renderer) return;
@@ -131,9 +100,6 @@ export function HeroGold({ className, children }: { className?: string; children
       renderer.setClearColor(0x000000, 0);
       const canvas = renderer.domElement;
       canvas.setAttribute("aria-hidden", "true");
-      /* Mulai tak terlihat dan baru muncul setelah frame pertama selesai
-         digambar — tidak ada kilatan kosong. Karena kanvas saat diam hampir
-         identik dengan gambarnya, peralihannya nyaris tak kasatmata. */
       canvas.style.cssText =
         "position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:0;transition:opacity .7s ease";
 
@@ -170,9 +136,6 @@ export function HeroGold({ className, children }: { className?: string; children
       const ro = new ResizeObserver(resize);
       ro.observe(host);
 
-      /* Pointer didengarkan di <section> hero, bukan di kanvas: kanvas dan
-         pembungkusnya pointer-events:none supaya judul dan tombol di atasnya
-         tetap bisa diklik. */
       const section = host.parentElement ?? host;
       const target = new THREE.Vector2(0.5, 0.5);
       let hoverTarget = 0;
@@ -195,7 +158,6 @@ export function HeroGold({ className, children }: { className?: string; children
         const dt = Math.min((now - last) / 1000, 0.05);
         last = now;
         uniforms.uTime.value += dt;
-        // pengejaran eksponensial yang tidak bergantung frame rate
         uniforms.uPointer.value.lerp(target, 1 - Math.pow(0.001, dt));
         uniforms.uHover.value += (hoverTarget - uniforms.uHover.value) * (1 - Math.pow(0.02, dt));
         renderer.render(scene, camera);
@@ -240,8 +202,6 @@ export function HeroGold({ className, children }: { className?: string; children
         canvas.remove();
       };
 
-      /* GPU bisa mencabut konteks WebGL (driver reset, tab latar terlalu
-         lama). Kanvas dilepas dan gambar statis kembali tampil. */
       canvas.addEventListener(
         "webglcontextlost",
         (e) => {
